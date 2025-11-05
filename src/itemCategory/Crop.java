@@ -2,6 +2,7 @@ package itemCategory;
 
 import base.Item;
 
+// not final
 public class Crop extends Item {
   protected String season;
   protected int growthDays;
@@ -50,15 +51,13 @@ public class Crop extends Item {
   }
 
   public int sell() {
-  if (isHarvested) {
-    int sellPrice = (int)(getCost() * 1.5);
-    System.out.println("You sold a " + getName() + " for " + sellPrice + " coins!");
-    return sellPrice;
-  } else {
-    System.out.println("You can’t sell an unharvested crop!");
-    return 0;
+    if (isHarvested) {
+      int sellPrice = (int)(getCost() * 1.5);
+      System.out.println("You sold a " + getName() + " for " + sellPrice + " coins!");
+      return sellPrice;
+    } else {
+      System.out.println("You can’t sell an unharvested crop!");
+      return 0;
+    }
   }
-}
-
-
 }
