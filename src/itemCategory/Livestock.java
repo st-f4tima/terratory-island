@@ -26,6 +26,10 @@ public class Livestock extends Item{
         System.out.println("Animals have bred.");
     }
 
+    public void feed(){
+        System.out.println("Animals have been fed.");
+    }
+
     // not final
     public int sell() {
         int sellPrice;
