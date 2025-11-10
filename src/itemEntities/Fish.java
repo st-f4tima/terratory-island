@@ -8,7 +8,7 @@ public class Fish extends Item {
     protected boolean isCatched;
 
     public Fish (String name, int cost, int unlockLevel, int xp, String season, String rarity){
-        super (name, cost, unlockLevel, xp);
+        super (name, cost, unlockLevel);
         this.isCatched = false;
     }
 

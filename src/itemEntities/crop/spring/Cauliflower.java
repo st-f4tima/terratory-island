@@ -7,7 +7,6 @@ public class Cauliflower extends Crop{
     super(
       "Cauliflower",
       175,
-      6,
       10,
       "Spring",
       6, 

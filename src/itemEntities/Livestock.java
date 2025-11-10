@@ -8,7 +8,7 @@ public class Livestock extends Item{
     protected int age;
 
     public Livestock(String name, int cost, int unlockLevel, int xp, String petname, int age){
-        super(name, cost, unlockLevel, xp);
+        super(name, cost, unlockLevel);
         this.petName = petname;
         this.age = age;
 
