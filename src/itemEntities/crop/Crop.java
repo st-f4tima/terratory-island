@@ -1,17 +1,17 @@
-package itemCategory;
+package itemEntities.crop;
 
 import base.Item;
 
 // not final
-public class Crop extends Item {
+public abstract class Crop extends Item {
   protected String season;
   protected int growthDays;
   protected boolean isWatered;
   protected boolean isFertilized;
   protected boolean isHarvested;
 
-  public Crop(String name, int cost, int unlockLevel, int xp, String season, int growthDays, boolean isWatered, boolean isFertilized) {
-    super(name, cost, unlockLevel, xp);
+  public Crop(String name, int cost, int unlockLevel, String season, int growthDays, boolean isWatered, boolean isFertilized) {
+    super(name, cost, unlockLevel);
     this.growthDays = growthDays;
     this.isWatered = isWatered;
     this.isFertilized = isFertilized;
