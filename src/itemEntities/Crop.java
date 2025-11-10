@@ -3,7 +3,7 @@ package itemEntities;
 import base.Item;
 
 // not final
-public class Crop extends Item {
+public abstract class Crop extends Item {
   protected String season;
   protected int growthDays;
   protected boolean isWatered;
