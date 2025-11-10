@@ -1,5 +1,17 @@
 package itemEntities.crop.fall;
 
-public class Pumpkin {
-  
+import itemEntities.crop.Crop;
+
+public class Pumpkin extends Crop{
+  public Pumpkin() {
+    super(
+      "Pumpkin",
+      320,
+      24,
+      "Fall",
+      13,
+      false,
+      false
+    );
+  }
 }
