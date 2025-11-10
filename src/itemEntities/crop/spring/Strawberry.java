@@ -7,7 +7,7 @@ public class Strawberry extends Crop{
     super(
       "Strawberry",
       120,
-      10,
+      3,
       "Spring",
       8, 
       false,

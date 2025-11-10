@@ -7,9 +7,9 @@ public class Melon extends Crop{
     super(
       "Melon",
       250,
-      14,
+      11,
       "Summer",
-      14,
+      12,
       false,
       false
     );

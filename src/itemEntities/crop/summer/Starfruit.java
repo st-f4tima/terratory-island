@@ -1,5 +1,17 @@
 package itemEntities.crop.summer;
 
-public class Starfruit {
-  
+import itemEntities.crop.Crop;
+
+public class Starfruit extends Crop{
+  public Starfruit() {
+    super(
+      "Starfruit",
+      750,
+      14,
+      "Summer",
+      13,
+      false, 
+      false
+    );
+  }
 }
