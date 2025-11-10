@@ -1,4 +1,4 @@
-package itemEntities;
+package itemEntities.crop;
 
 import base.Item;
 

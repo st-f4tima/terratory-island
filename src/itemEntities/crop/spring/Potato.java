@@ -1,6 +1,6 @@
-package itemEntities.crops.springSeason;
+package itemEntities.crop.spring;
 
-import itemEntities.Crop;
+import itemEntities.crop.Crop;
 
 public class Potato extends Crop{
   public Potato() {
