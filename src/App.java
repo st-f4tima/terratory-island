@@ -1,13 +1,14 @@
-import itemEntities.crop.spring.*;
 import base.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        Potato potato = new Potato();
-        potato.plantSeed();
+        
+        // trial
+        Player player = new Player("fatima", "lemonFarm");
+        GameManager game = new GameManager(player);
 
-        Player player = new Player("fatima", "lemonFarm", 0, 0);
         System.out.println(player.getIslandName());
-
+        player.nextDay();
+        game.nextDay();
     }
 }
