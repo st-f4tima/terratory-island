@@ -1,19 +1,20 @@
-package itemEntities;
+package itemEntities.fish;
 
 import base.Item;
 
-public class Fish extends Item {
+public abstract class Fish extends Item {
     protected String season;
-    protected String rarity;
+    protected int weight;
     protected boolean isCatched;
 
-    public Fish (String name, int cost, int unlockLevel, int xp, String season, String rarity){
+    public Fish (String name, int cost, int unlockLevel, int xp, String season, int weight){
         super (name, cost, unlockLevel);
         this.isCatched = false;
     }
 
     public void catchFish (){
         // randomizer
+        
         System.out.println("You catched a ");
     }
 
