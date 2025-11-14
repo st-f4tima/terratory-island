@@ -1,5 +1,14 @@
 package itemEntities.fish.summer;
 
-public class Sardines {
-    
+import itemEntities.fish.Fish;
+public class Sardines extends Fish{
+    public Sardines() {
+        super(
+            "Sardines",
+            120,
+            2,
+            "Summer",
+            0
+        );
+    }
 }

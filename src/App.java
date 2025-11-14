@@ -10,5 +10,7 @@ public class App {
         System.out.println(player.getIslandName());
         player.nextDay();
         game.nextDay();
+
+
     }
 }

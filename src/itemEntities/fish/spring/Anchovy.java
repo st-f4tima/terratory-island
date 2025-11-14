@@ -1,5 +1,14 @@
 package itemEntities.fish.spring;
 
-public class Anchovy {
-    
+import itemEntities.fish.Fish;
+public class Anchovy extends Fish{
+    public Anchovy() {
+        super(
+            "Anchovy",
+            80,
+            1,
+            "Spring",
+            0
+        );
+    }
 }
