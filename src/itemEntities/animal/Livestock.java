@@ -15,40 +15,63 @@ public abstract class Livestock extends Item{
         this.age = age;
         this.breedCooldown = breedCooldown;
         this.isFed = isFed;
+        updateGrowthStage();
+    }
 
+    //  progress
+    protected void updateGrowthStage(){
         if(age >= 8){
             this.growthStage = "Adult";
-            this.breedCooldown = 7; // days
+            if(this.breedCooldown == 0){
+                this.breedCooldown = 7;
+            }
         } else if(age >= 4){
             this.growthStage = "Young";
+            this.breedCooldown = 0;
         } else {
             this.growthStage = "Baby";
+            this.breedCooldown = 0;
         }
     }
 
+    public void passDay(){
+        this.age++;
+        if (this.breedCooldown > 0) {
+            this.breedCooldown--;
+        }
+        updateGrowthStage();
+        this.isFed = false;
+    }
+
+    //  methods: animal-specific 
+    protected abstract String getProduce();
     protected abstract Livestock birth();
 
+    //  methods: called in play
     public final Livestock breed(){
-        // breed conditions:
+        // breed condition: too young
         if(this.growthStage.equals("Young")){
             System.out.println("This one is too young to breed.");
+            return null;
+        // breed condition: just a baby
         } else if(this.growthStage.equals("Baby")){
             System.out.println("No. It's just a baby...");
+            return null;
+        // breed condition: adult
         } else {
-            System.out.println("Gestation achieved.");
+            System.out.println(this.petName + " has achieved gestation.");
+            Livestock baby = this.birth();
+            return baby;
         }
-        Livestock baby = this.birth();
-        return baby;
     }
 
     public void feed(){
         if(!isFed){
             this.isFed = true;
-            System.out.println("This one has been fed.");
+            System.out.println(this.petName + " has been fed.");
         } else {
-            System.out.println("This one already ate.");
+            System.out.println(this.petName + " already ate.");
         }
-        
     }
 
     @Override
@@ -61,7 +84,7 @@ public abstract class Livestock extends Item{
         } else if(this.growthStage.equals("Young")) {
             sellPrice = (int)(getCost() * 0.80);
             System.out.println("You sold " +this.petName +", a " +getName() +", for " +sellPrice +" coins. Good luck out there, child.");
-            // a bit young but doable, i guess
+            // a bit young but do-able, i guess
         } else if(this.growthStage.equals("Baby")) {
             sellPrice = (int)(getCost() * 0.50);
             System.out.println("You sold " +this.petName +", a " +getName() +", for " +sellPrice +" coins...");
