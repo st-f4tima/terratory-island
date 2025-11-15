@@ -1,17 +1,18 @@
 import base.*;
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        
-        // trial
-        Player player = new Player("fatima", "lemonFarm");
-        GameManager game = new GameManager(player);
+        // not final
+        Scanner scanner = new Scanner(System.in);
+        boolean startGame = GameManager.displayIntro(scanner);
+        if (startGame) {
+            GameManager game = new GameManager();
+            game.createCharacter(scanner);
+            game.displayMenu(scanner);
+        }
 
-        System.out.println(player.getIslandName());
-        player.nextDay();
-        game.nextDay();
-
-
+        scanner.close();
     }
 
 }
