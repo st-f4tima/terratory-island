@@ -18,7 +18,7 @@ public abstract class Livestock extends Item{
         updateGrowthStage();
     }
 
-    //  progress
+    //  progression (internal)
     protected void updateGrowthStage(){
         if(age >= 8){
             this.growthStage = "Adult";
@@ -34,6 +34,7 @@ public abstract class Livestock extends Item{
         }
     }
 
+    // progression (in-game)
     public void passDay(){
         this.age++;
         if (this.breedCooldown > 0) {
@@ -43,12 +44,13 @@ public abstract class Livestock extends Item{
         this.isFed = false;
     }
 
-    //  methods: animal-specific 
+    //  animal-specific
     protected abstract String getProduce();
-    protected abstract Livestock birth();
+    protected abstract Livestock birth(String babyName);
+    public abstract String collectProduce();
 
-    //  methods: called in play
-    public final Livestock breed(){
+    //  called in play
+    public final Livestock breed(String babyName){
         // breed condition: too young
         if(this.growthStage.equals("Young")){
             System.out.println("This one is too young to breed.");
@@ -60,7 +62,7 @@ public abstract class Livestock extends Item{
         // breed condition: adult
         } else {
             System.out.println(this.petName + " has achieved gestation.");
-            Livestock baby = this.birth();
+            Livestock baby = this.birth(babyName);
             return baby;
         }
     }
@@ -77,22 +79,26 @@ public abstract class Livestock extends Item{
     @Override
     public int sell() {
         int sellPrice;
-        if (this.growthStage.equals("Adult")) {
-            sellPrice = (int)(getCost() * 1.0);
-            System.out.println("You sold " +this.petName +", a " +getName() +", for " +sellPrice +" coins! Fare well~");
-            // sold for full price!
-        } else if(this.growthStage.equals("Young")) {
-            sellPrice = (int)(getCost() * 0.80);
-            System.out.println("You sold " +this.petName +", a " +getName() +", for " +sellPrice +" coins. Good luck out there, child.");
-            // a bit young but do-able, i guess
-        } else if(this.growthStage.equals("Baby")) {
-            sellPrice = (int)(getCost() * 0.50);
-            System.out.println("You sold " +this.petName +", a " +getName() +", for " +sellPrice +" coins...");
-            // why sell the animal so young? :(
-        } else {
-            System.out.println("You cannot sell something you do not have."); // none in stocc
-            return 0;
-        } 
+        switch(this.growthStage) {
+            case "Adult":
+                sellPrice = (int)(getCost() * 1.0);
+                System.out.println("You sold " +this.petName +", a " +getName() +", for " +sellPrice +" coins! Fare well~");
+                // sold for full price!
+                break;
+            case "Young":
+                sellPrice = (int)(getCost() * 0.80);
+                System.out.println("You sold " +this.petName +", a " +getName() +", for " +sellPrice +" coins. Good luck out there, child.");
+                // a bit young but do-able, i guess
+                break;
+            case "Baby":
+                sellPrice = (int)(getCost() * 0.50);
+                System.out.println("You sold " +this.petName +", a " +getName() +", for " +sellPrice +" coins...");
+                // why sell the animal so young? :(
+                break; 
+            default:
+                System.out.println("You cannot sell something you do not have."); // none in stocc
+                return 0;
+        }
         return sellPrice;
     }
 }
