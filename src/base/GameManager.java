@@ -1,12 +1,45 @@
 package base;
 
+import java.util.Scanner;
+
 public class GameManager {
   private Player player;
   private String currentSeason;
+  
+  Scanner scanner = new Scanner(System.in);
 
   public GameManager(Player player) {
     this.player = player;
     this.currentSeason = "Spring";
+  }
+
+  public void showIntro() {
+    String GREEN = "\u001B[32m";
+    String RESET = "\u001B[0m";
+
+    System.out.println();
+    System.out.println(GREEN + """
+      ██████ ██████ █████▄  █████▄  ▄████▄ ██████ ▄████▄ █████▄  ██  ██   ██ ▄█████ ██     ▄████▄ ███  ██ ████▄  
+        ██   ██▄▄   ██▄▄██▄ ██▄▄██▄ ██▄▄██   ██   ██  ██ ██▄▄██▄  ▀██▀    ██ ▀▀▀▄▄▄ ██     ██▄▄██ ██ ▀▄██ ██  ██ 
+        ██   ██▄▄▄▄ ██   ██ ██   ██ ██  ██   ██   ▀████▀ ██   ██   ██     ██ █████▀ ██████ ██  ██ ██   ██ ████▀  
+    """ + RESET);
+    System.out.println("\"You sail alone across the vast ocean. Suddenly, a violent storm engulfs you.\n" +
+    "Swept by the raging waves, you are cast onto the shore of an unknown island.\"");
+
+    while (true) {
+      System.out.print("\nExplore the island? (y/n): ");
+      char answer = Character.toLowerCase(scanner.next().charAt(0));
+
+      if (answer == 'y') {
+        System.out.println("Proceed!");
+        break;
+      } else if (answer == 'n') {
+        System.out.println("\n\"You decide against exploring.\nThe storm settles, and you set sail again.\"\n");
+          break;
+      } else {
+        System.out.println("Invalid Input.");
+      }
+    }
   }
 
   public void nextDay() {
