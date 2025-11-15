@@ -1,19 +1,24 @@
-package itemEntities;
+package itemEntities.animal;
 
 import base.Item;
 
-public class Livestock extends Item{ 
+public abstract class Livestock extends Item{ 
     protected String petName;
     protected String growthStage;
     protected int age;
+    protected int breedCooldown;
+    protected boolean isFed;
 
-    public Livestock(String name, int cost, int unlockLevel, int xp, String petname, int age){
+    public Livestock(String name, int cost, int unlockLevel, String petName, int age, int breedCooldown, boolean isFed){
         super(name, cost, unlockLevel);
-        this.petName = petname;
+        this.petName = petName;
         this.age = age;
+        this.breedCooldown = breedCooldown;
+        this.isFed = isFed;
 
         if(age >= 8){
             this.growthStage = "Adult";
+            this.breedCooldown = 7; // days
         } else if(age >= 4){
             this.growthStage = "Young";
         } else {
@@ -21,16 +26,32 @@ public class Livestock extends Item{
         }
     }
 
-    // not final
-    public void breed(){
-        System.out.println("Animals have bred.");
+    protected abstract Livestock birth();
+
+    public final Livestock breed(){
+        // breed conditions:
+        if(this.growthStage.equals("Young")){
+            System.out.println("This one is too young to breed.");
+        } else if(this.growthStage.equals("Baby")){
+            System.out.println("No. It's just a baby...");
+        } else {
+            System.out.println("Gestation achieved.");
+        }
+        Livestock baby = this.birth();
+        return baby;
     }
 
     public void feed(){
-        System.out.println("Animals have been fed.");
+        if(!isFed){
+            this.isFed = true;
+            System.out.println("This one has been fed.");
+        } else {
+            System.out.println("This one already ate.");
+        }
+        
     }
 
-    // not final
+    @Override
     public int sell() {
         int sellPrice;
         if (this.growthStage.equals("Adult")) {
