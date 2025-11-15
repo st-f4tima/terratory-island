@@ -3,17 +3,18 @@ package base;
 import java.util.Scanner;
 
 public class GameManager {
+  public static boolean startGame = false;
   private Player player;
   private String currentSeason;
   
-  Scanner scanner = new Scanner(System.in);
-
   public GameManager(Player player) {
     this.player = player;
     this.currentSeason = "Spring";
   }
 
-  public void showIntro() {
+  public static void showIntro() {
+    Scanner scanner = new Scanner(System.in);
+
     String GREEN = "\u001B[32m";
     String RESET = "\u001B[0m";
 
@@ -31,11 +32,12 @@ public class GameManager {
       char answer = Character.toLowerCase(scanner.next().charAt(0));
 
       if (answer == 'y') {
-        System.out.println("Proceed!");
+        startGame = true;
         break;
       } else if (answer == 'n') {
+        startGame = false;
         System.out.println("\n\"You decide against exploring.\nThe storm settles, and you set sail again.\"\n");
-          break;
+        break;
       } else {
         System.out.println("Invalid Input.");
       }
