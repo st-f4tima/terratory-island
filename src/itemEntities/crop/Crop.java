@@ -49,7 +49,8 @@ public abstract class Crop extends Item {
       System.out.println("The crop isn't ready for harvest yet.");
     }
   }
-
+  
+  @Override
   public int sell() {
     if (isHarvested) {
       int sellPrice = (int)(getCost() * 1.5);

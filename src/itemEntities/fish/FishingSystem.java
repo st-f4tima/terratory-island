@@ -9,7 +9,6 @@ import java.util.Random;
 public class FishingSystem {
     private static final Random random = new Random();
 
-    // Get all available fish for a season
     public static Fish[] getFishForSeason(String season) {
         switch (season) {
             case "Fall":
@@ -25,7 +24,6 @@ public class FishingSystem {
         }
     }
 
-    // Catch a random fish in the current season
     public static CaughtFish catchFish(String currentSeason) {
         Fish[] availableFish = getFishForSeason(currentSeason);
 
@@ -34,10 +32,8 @@ public class FishingSystem {
             return null;
         }
 
-        // Pick a random fish from available fish
         Fish caughtFishType = availableFish[random.nextInt(availableFish.length)];
-        
-        // Generate random weight (1-10 kg)
+
         int weight = random.nextInt(10) + 1;
 
         CaughtFish caughtFish = new CaughtFish(caughtFishType, weight);
