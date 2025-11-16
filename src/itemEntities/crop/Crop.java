@@ -26,18 +26,18 @@ public abstract class Crop extends Item {
   public void waterPlant() {
     if (!isWatered) {
       isWatered = true;
-      System.out.println("The plant has been watered.");
+      System.out.println("The crops have been watered.");
     } else {
-      System.out.println("The plant is already watered.");
+      System.out.println("The crops are already watered.");
     }
   }
 
   public void fertilizePlant() {
     if (!isFertilized) {
       isFertilized = true;
-      System.out.println("The plant has been fertilized.");
+      System.out.println("The crops have been fertilized.");
     } else {
-      System.out.println("The plant is already fertilized.");
+      System.out.println("The crops are already fertilized.");
     }
   }
 
@@ -46,7 +46,7 @@ public abstract class Crop extends Item {
       isHarvested = true;
       System.out.println("You harvested a " + getName() + "!");
     } else {
-      System.out.println("The crop isn't ready for harvest yet.");
+      System.out.println("The crops aren't ready for harvest yet.");
     }
   }
   
@@ -57,7 +57,7 @@ public abstract class Crop extends Item {
       System.out.println("You sold a " + getName() + " for " + sellPrice + " coins!");
       return sellPrice;
     } else {
-      System.out.println("You can’t sell an unharvested crop!");
+      System.out.println("You can’t sell an unharvested crops!");
       return 0;
     }
   }

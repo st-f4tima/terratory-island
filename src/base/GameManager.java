@@ -2,6 +2,8 @@ package base;
 
 import java.util.Scanner;
 
+import managers.CropManager;
+
 public class GameManager {
   private Player player;
   private String currentSeason;
@@ -85,9 +87,56 @@ public class GameManager {
       ""
     );
 
-    System.out.print("\n-> ");
-    
-    // switch case here
+    while (true) {
+      System.out.print("\n-> ");
+      int menuChoice = scanner.nextInt();
+
+      if (menuChoice == 1) {
+        checkFarmFields(scanner); // Fatima
+        break;
+      } else if (menuChoice == 2) {
+        // visitAnimalBarn(); - Gema
+        break;
+      } else if (menuChoice == 3) {
+        // goFishing(); - Kishean
+        break;
+      } else if (menuChoice == 4) {
+        // openInventory();
+      } else if (menuChoice == 5) {
+        //  viewProfile();
+        break;
+      } else if (menuChoice == 6) {
+        // proceedToNextDay();
+        break;
+      } else if (menuChoice == 7) {
+        System.out.println("Thank you!"); // not final msg
+        return;
+      } else {
+        System.out.println("Error: Please select a number from 1 to 7.");
+      }
+    }
+  }
+
+  public void checkFarmFields(Scanner scanner) {
+    System.out.println("\n──────────────── FARM FIELDS ────────────────\n");
+    System.out.println("\"What a great day! What would you like to do in the farm fields?\"\n");
+    System.out.println("1. Plant New Seeds");
+    System.out.println("2. Apply Fertilizer");
+    System.out.println("3. Water Your Crops");
+    System.out.println("4. Harvest Your Crops");
+
+    while (true) {
+      System.out.print("Select 1 - 4, or 'm' to return to the main menu: ");
+      char farmMenuChoice = Character.toLowerCase(scanner.next().charAt(0));
+      scanner.nextLine(); // clears leftover newline hehe, i dont know
+
+      CropManager cropManager = new CropManager();
+      if (farmMenuChoice == '1') {
+        cropManager.displayAvailableCrops(currentSeason);
+        break;
+      }
+      // will do in later commits
+    }
   }
 
   public void nextDay() {
