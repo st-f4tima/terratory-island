@@ -49,6 +49,19 @@ public abstract class Livestock extends Item{
     protected abstract Livestock birth(String babyName);
     public abstract String collectProduce();
 
+    //  call animal details
+    public String getPetName(){
+        return this.petName;
+    }
+
+    public String growthStage(){
+        return this.growthStage;
+    }
+
+    public int getAge(){
+        return this.age;
+    }
+
     //  called in play
     public final Livestock breed(String babyName){
         // breed condition: too young
