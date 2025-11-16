@@ -28,20 +28,20 @@ public class Sheep extends Livestock{
     }
 
     @Override
-    public String collectProduce(){
+    public int collectProduce(){
         //  if not adult
         if (!this.growthStage.equals("Adult")) {
             System.out.println(this.petName + " is " + this.growthStage.toLowerCase() + " and cannot be sheared yet.");
-            return null;
+            return 0;
         }
         //  feed first
         if (this.isFed) {
             System.out.println("You collected " + getProduce().toLowerCase() + " from " + this.petName + "!");
             this.isFed = false;
-            return getProduce();
+            return 1;
         } else {
             System.out.println(this.petName + " hasn't been fed today and refuses to be sheared.");
-            return null;
+            return 0;
         }
     }
 }

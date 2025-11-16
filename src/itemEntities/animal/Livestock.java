@@ -47,14 +47,14 @@ public abstract class Livestock extends Item{
     //  animal-specific
     protected abstract String getProduce();
     protected abstract Livestock birth(String babyName);
-    public abstract String collectProduce();
+    public abstract int collectProduce();
 
     //  call animal details
     public String getPetName(){
         return this.petName;
     }
 
-    public String growthStage(){
+    public String getGrowthStage(){
         return this.growthStage;
     }
 

@@ -51,7 +51,7 @@ public class LivestockInventory extends Inventory{
             for (Livestock animal : animals){
                 String status = String.format("| %-12s | %-8s | %4d days old |",
                     animal.getPetName(),
-                    animal.growthStage().toLowerCase(),
+                    animal.getGrowthStage().toLowerCase(),
                     animal.getAge());
                 System.out.println(status);
             }
