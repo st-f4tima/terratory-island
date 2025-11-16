@@ -1,9 +1,12 @@
 package itemEntities.animal.unique;
 
 import itemEntities.animal.Livestock;
-// import java.util.Random;
+import java.util.Random;
 
 public class Pig extends Livestock{
+    private final Random rnd = new Random();
+    private static final int TRUFFLE_MIN = 0;
+    private static final int TRUFFLE_MAX = 2;
     
     public Pig(String petName, int age){
         super(
@@ -29,20 +32,23 @@ public class Pig extends Livestock{
     }
 
     @Override
-    public String collectProduce(){
-        //  if not adult
+    public int collectProduce(){
         if (!this.growthStage.equals("Adult")) {
             System.out.println(this.petName + " is " + this.growthStage.toLowerCase() + " and cannot work yet.");
-            return null;
+            return 0;
         }
-        //  feed first
-        if (this.isFed) {
-            System.out.println("You collected " + getProduce().toLowerCase() + " from " + this.petName + "!");
-            this.isFed = false;
-            return getProduce();
+        if (!this.isFed) {
+            System.out.println(this.petName + " hasn't been fed today and won't produce.");
+            return 0;
+        }
+
+        int truffleFound = rnd.nextInt(TRUFFLE_MAX - TRUFFLE_MIN + 1) + TRUFFLE_MIN;
+        this.isFed = false;
+        if (truffleFound > 0) {
+            System.out.println("You collected " +truffleFound +" " +getProduce() +"(s) from " +this.petName +"!");
         } else {
-            System.out.println(this.petName + " hasn't been fed today and won't work for produce.");
-            return null;
+            System.out.println(this.petName + " was fed but didn't lay any eggs today.");
         }
+        return truffleFound;
     }
 }

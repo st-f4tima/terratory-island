@@ -1,9 +1,12 @@
 package itemEntities.animal.egg;
 
 import itemEntities.animal.Livestock;
-// import java.util.Random;
+import java.util.Random;
 
 public class Chicken extends Livestock{
+    private final Random rnd = new Random();
+    public static final int EGGS_MIN = 0;
+    public static final int EGGS_MAX = 4;
 
     public Chicken(String petName, int age){
         super(
@@ -29,20 +32,23 @@ public class Chicken extends Livestock{
     }
 
     @Override
-    public String collectProduce(){
-        //  if not adult
+    public int collectProduce(){
         if (!this.growthStage.equals("Adult")) {
             System.out.println(this.petName + " is " + this.growthStage.toLowerCase() + " and cannot lay eggs yet.");
-            return null;
+            return 0;
         }
-        //  feed first
-        if (this.isFed) {
-            System.out.println("You collected an " + getProduce().toLowerCase() + " from " + this.petName + "!");
-            this.isFed = false;
-            return getProduce();
-        } else {
+        if (!this.isFed) {
             System.out.println(this.petName + " hasn't been fed today and won't produce.");
-            return null;
+            return 0;
         }
+
+        int eggsLayed = rnd.nextInt(EGGS_MAX - EGGS_MIN + 1) + EGGS_MIN;
+        this.isFed = false;
+        if (eggsLayed > 0) {
+            System.out.println("You collected " +eggsLayed +" " +getProduce() +"(s) from " +this.petName +"!");
+        } else {
+            System.out.println(this.petName + " was fed but didn't lay any eggs today.");
+        }
+        return eggsLayed;
     }
 }
