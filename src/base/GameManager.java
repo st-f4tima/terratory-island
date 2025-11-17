@@ -1,7 +1,6 @@
 package base;
 
 import java.util.Scanner;
-
 import managers.CropManager;
 import managers.FishManager;
 
@@ -120,27 +119,26 @@ public class GameManager {
 
   public void checkFarmFields(Scanner scanner) {
     System.out.println("\n──────────────── FARM FIELDS ────────────────\n");
-    System.out.println("\"What a great day! What would you like to do in the farm fields?\"\n");
+    System.out.println("\"Sun's out, tools out! What mischief-I mean, farming-shall we do today?\"\n");
     System.out.println("1. Plant New Seeds");
     System.out.println("2. Apply Fertilizer");
     System.out.println("3. Water Your Crops");
     System.out.println("4. Harvest Your Crops");
-
+    System.out.println("5. I want to do something else");
     while (true) {
-      System.out.print("Select 1 - 4, or 'm' to return to the main menu: ");
-      char farmMenuChoice = Character.toLowerCase(scanner.next().charAt(0));
-      scanner.nextLine(); // clears leftover newline hehe, i dont know
+      System.out.print("\n-> ");
+      int farmMenuChoice = scanner.nextInt();
 
       CropManager cropManager = new CropManager();
-      if (farmMenuChoice == '1') {
+      if (farmMenuChoice == 1) {
         cropManager.displayAvailableCrops(currentSeason);
         break;
       }
-      // will do in later commits
+      // TODO: Finish checkFarmFields menu
     }
   }
 
-  // gema, your part here
+  // TODO: Implement visitAnimalBarn()
 
   public void visitFishingDock(Scanner scanner) {
     System.out.println("\n──────────────── FISHING DOCK ───────────────\n");
@@ -164,6 +162,11 @@ public class GameManager {
       }
     }
   }
+
+  // TODO: Implement OpenInventory()
+  // TODO: Implement viewProfile()
+  // TODO: Implment proceedToNextDay() - put nextDay() logic on it
+  // TODO: Implement LeaveGame()
 
   public void nextDay() {
     player.nextDay();
