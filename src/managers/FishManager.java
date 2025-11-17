@@ -59,11 +59,11 @@ public class FishManager {
     }
 
     public void catchFish(String currentSeason) {
-        System.out.println("\n Casting your line...");
+        System.out.println("\nCasting your line...");
         Fish caughtFish = getRandomFish(currentSeason);
         int caughtFishWeight = getRandomWeight(caughtFish);
 
-        System.out.println("You caught a " + caughtFish.getName() + " weighing " + caughtFishWeight + " kg!");
+        System.out.println("\nYou caught a " + caughtFish.getName() + " weighing " + caughtFishWeight + " kg!");
     }
 
 }
