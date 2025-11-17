@@ -8,7 +8,7 @@ public class Perch extends Fish{
             80,
             1,
             "Winter",
-            0
+            6
         );
     }
 }

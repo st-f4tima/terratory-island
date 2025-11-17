@@ -6,9 +6,9 @@ public class Sardines extends Fish{
         super(
             "Sardines",
             120,
-            2,
+            1,
             "Summer",
-            0
+            3
         );
     }
 }

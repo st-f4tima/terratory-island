@@ -6,9 +6,9 @@ public class Pollock extends Fish{
         super(
             "Pollock",
             120,
-            2,
+            1,
             "Winter",
-            0
+            12
         );
     }
 }

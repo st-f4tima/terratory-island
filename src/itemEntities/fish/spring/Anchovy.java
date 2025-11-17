@@ -8,7 +8,7 @@ public class Anchovy extends Fish{
             80,
             1,
             "Spring",
-            0
+            5
         );
     }
 }

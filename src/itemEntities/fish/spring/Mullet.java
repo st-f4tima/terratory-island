@@ -6,9 +6,9 @@ public class Mullet extends Fish{
         super(
             "Mullet",
             180,
-            3,
+            1,
             "Spring",
-            0
+            8
         );
     }
 }

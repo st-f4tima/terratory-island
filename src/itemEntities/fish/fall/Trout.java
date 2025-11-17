@@ -7,9 +7,9 @@ public class Trout extends Fish {
         super(
             "Trout",
             180,
-            3, 
+            1,
             "Fall",
-            0
+            10
         );
     }
 }

@@ -6,9 +6,9 @@ public class Catfish extends Fish{
         super(
             "Catfish",
             150,
-            2,
+            1,
             "Spring",
-            0
+            12
         );
     }
 }
