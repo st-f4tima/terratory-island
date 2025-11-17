@@ -49,7 +49,7 @@ public abstract class Livestock extends Item{
     protected abstract Livestock birth(String babyName);
     public abstract int collectProduce();
 
-    //  call animal details
+    //  getters
     public String getPetName(){
         return this.petName;
     }
@@ -95,17 +95,17 @@ public abstract class Livestock extends Item{
         switch(this.growthStage) {
             case "Adult":
                 sellPrice = (int)(getCost() * 1.0);
-                System.out.println("You sold " +this.petName +", a " +getName() +", for " +sellPrice +" coins! Fare well~");
+                System.out.println("You sold " +this.petName +", a " +getName().toLowerCase() +", for " +sellPrice +" coins! Fare well~");
                 // sold for full price!
                 break;
             case "Young":
                 sellPrice = (int)(getCost() * 0.80);
-                System.out.println("You sold " +this.petName +", a " +getName() +", for " +sellPrice +" coins. Good luck out there, child.");
+                System.out.println("You sold " +this.petName +", a " +getName().toLowerCase() +", for " +sellPrice +" coins. Good luck out there, child.");
                 // a bit young but do-able, i guess
                 break;
             case "Baby":
                 sellPrice = (int)(getCost() * 0.50);
-                System.out.println("You sold " +this.petName +", a " +getName() +", for " +sellPrice +" coins...");
+                System.out.println("You sold " +this.petName +", a " +getName().toLowerCase() +", for " +sellPrice +" coins...");
                 // why sell the animal so young? :(
                 break; 
             default:
