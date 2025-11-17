@@ -1,6 +1,7 @@
 package itemEntities.fish;
 
 import base.Item;
+import managers.FishManager;;
 
 public abstract class Fish extends Item {
     protected String season;
@@ -20,14 +21,10 @@ public abstract class Fish extends Item {
         return maxWeight;
     }
 
-    // delete, put it inside sell()
-    public int calculateSellPrice(int weight) {
-        return getCost() * weight;
-    }
-
     @Override
     public int sell() {
-        // fix logic
-        return 0;
+        int sellPrice = getCost() * maxWeight;
+        System.out.println("You sell an/a " + this.getName() + " for a price of " + sellPrice);
+        return sellPrice;
     }
 }

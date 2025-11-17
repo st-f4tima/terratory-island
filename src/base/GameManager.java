@@ -3,6 +3,7 @@ package base;
 import java.util.Scanner;
 
 import managers.CropManager;
+import managers.FishManager;
 
 public class GameManager {
   private Player player;
@@ -82,7 +83,7 @@ public class GameManager {
     );
 
     System.out.printf("%-25s %-25s %-25s\n",
-      "3. Go Fishing", 
+      "3. Visit Fishing Dock", 
       "", 
       ""
     );
@@ -98,7 +99,7 @@ public class GameManager {
         // visitAnimalBarn(); - Gema
         break;
       } else if (menuChoice == 3) {
-        // goFishing(); - Kishean
+          visitFishingDock(scanner);
         break;
       } else if (menuChoice == 4) {
         // openInventory();
@@ -136,6 +137,31 @@ public class GameManager {
         break;
       }
       // will do in later commits
+    }
+  }
+
+  // gema, your part here
+
+  public void visitFishingDock(Scanner scanner) {
+    System.out.println("\n──────────────── FISHING DOCK ───────────────\n");
+    System.out.println("\"Fishing time! Remember: patience is key, and so is random luck.\"\n");
+    System.out.println("1. Start Fishing");
+    System.out.println("2. I want to do something else");
+    
+    while (true) {
+      System.out.print("\nSelect from 1 - 2: ");
+      int fishingMenuChoice = scanner.nextInt();
+
+      FishManager fishManager = new FishManager();
+      if (fishingMenuChoice == 1) {
+        fishManager.catchFish(currentSeason);
+        break;
+      } else if (fishingMenuChoice == 2) {
+        displayMenu(scanner);
+        break;
+      } else {
+        System.out.println("Error: Please select a number from 1 to 2.");
+      }
     }
   }
 
