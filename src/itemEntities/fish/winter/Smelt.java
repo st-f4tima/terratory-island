@@ -6,9 +6,9 @@ public class Smelt extends Fish{
         super(
             "Smelt",
             150,
-            3,
+            1,
             "Winter",
-            0
+            4
         );
     }
 }

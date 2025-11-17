@@ -4,29 +4,30 @@ import base.Item;
 
 public abstract class Fish extends Item {
     protected String season;
-    protected int baseWeight;
+    protected int maxWeight;
 
-    public Fish(String name, int baseCost, int unlockLevel, String season, int baseWeight) {
+    public Fish(String name, int baseCost, int unlockLevel, String season, int maxWeight) {
         super(name, baseCost, unlockLevel);
         this.season = season;
-        this.baseWeight = baseWeight;
+        this.maxWeight = maxWeight;
     }
 
     public String getSeason() {
         return season;
     }
 
-    public int getBaseWeight() {
-        return baseWeight;
+    public int getMaxWeight() {
+        return maxWeight;
     }
 
+    // delete, put it inside sell()
     public int calculateSellPrice(int weight) {
         return getCost() * weight;
     }
 
     @Override
     public int sell() {
-        System.out.println("You cannot sell a fish template. Catch a fish first!");
+        // fix logic
         return 0;
     }
 }

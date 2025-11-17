@@ -8,7 +8,7 @@ public class Mackerel extends Fish {
             80,
             1,
             "Summer",
-            0
+            7
         );
     }
 }

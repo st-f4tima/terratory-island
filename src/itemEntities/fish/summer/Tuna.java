@@ -6,9 +6,9 @@ public class Tuna extends Fish {
         super(
             "Tuna",
             150,
-            3,
+            1,
             "Summer",
-            0
+            30
         );
     }
 }

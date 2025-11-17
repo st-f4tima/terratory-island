@@ -9,7 +9,7 @@ public class Cod extends Fish{
             80,
             1,
             "Fall",
-            0
+            15
         );
     }
 }
