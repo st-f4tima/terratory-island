@@ -1,7 +1,6 @@
 package itemEntities.fish;
 
 import base.Item;
-import managers.FishManager;;
 
 public abstract class Fish extends Item {
     protected String season;
