@@ -1,88 +1,91 @@
 package managers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import base.Player;
+import java.util.Map;
 import java.util.Scanner;
+import base.Player;
 import itemEntities.crop.Crop;
+import inventoryEntities.CropInventory;
+
 import itemEntities.crop.spring.*;
 import itemEntities.crop.summer.*;
 import itemEntities.crop.fall.*;
 
 public class CropManager {
-  List<Crop> springCrops;
-  List<Crop> summerCrops;
-  List<Crop> fallCrops;
-  List<Crop> plantedCrops;
+  private CropInventory cropInventory;
+  private Map<String, List<Crop>> cropCollection;
 
   public CropManager() {
-    springCrops = List.of(new Potato(), new Strawberry(), new Cauliflower());
-    summerCrops = List.of(new Wheat(), new Melon(), new Starfruit());
-    fallCrops = List.of(new Grape(), new Pumpkin(), new SweetGemBerry());
-    plantedCrops = new ArrayList<>();
+    this.cropInventory = new CropInventory();
+    this.cropCollection = new HashMap<>();
+    initializeCrops();
+  }
+
+  private void initializeCrops() {
+    cropCollection.put("Spring", List.of(new Potato(), new Strawberry(), new Cauliflower()));
+    cropCollection.put("Summer", List.of(new Wheat(), new Melon(), new Starfruit()));
+    cropCollection.put("Fall", List.of(new Grape(), new Pumpkin(), new SweetGemBerry()));
   }
 
   public void plantSeeds(String currentSeason, Player player, Scanner scanner) {
     System.out.println("\n────────────── PLANT NEW SEEDS ──────────────\n");
     System.out.println("Season: " + currentSeason);
 
-    List<Crop> availableCrops;
+    List<Crop> availableCrops = cropCollection.get(currentSeason);
 
-    switch (currentSeason) {
-      case "Spring":
-        availableCrops = springCrops;
-        break;
-      case "Summer": 
-        availableCrops = summerCrops;
-        break;
-      case "Fall":
-        availableCrops = fallCrops;
-        break;
-      case "Winter":
-        System.out.println("No crops can be planted in Winter.");
-        return;
-      default:
-        System.out.println("Invalid season.");
-        return;
+    if(availableCrops == null) {
+      System.out.println("No crops can be planted in " + currentSeason + ".");
+      return;
     }
 
+    // display available crops for the current season
     for(int i = 0; i < availableCrops.size(); i++) {
       Crop crop = availableCrops.get(i);
-      int requiredLevel = crop.getLevelRequired();
-      System.out.printf("\n%d. %s (Level required: %d)", (i + 1), crop.getName(), requiredLevel);
+      System.out.printf("%d. %-15s (Lvl Req: %d)\n", (i + 1), crop.getName(), crop.getLevelRequired());
     }
 
+    System.out.println("\nChoose a seed to plant:");
+    int seedChoice = getValidIntInput(scanner, availableCrops.size());
+    Crop chosenSeed = availableCrops.get(seedChoice - 1);
+
+    if (player.getLevel() < chosenSeed.getLevelRequired()) {
+      System.out.println("\n[!] You must be level " + chosenSeed.getLevelRequired() + " to plant " + chosenSeed.getName() + ".");
+      return;
+    }
+
+    System.out.println("\nSpecify the number of seeds to plant:");
+
+    int quantity = getValidIntInput(scanner, 99); 
+    for (int i = 0; i < quantity; i++) {
+      cropInventory.plantCrop(chosenSeed.createCopy());
+      System.out.println("\n[Success] You planted " + quantity + " " + chosenSeed.getName() + "(s)!");
+    }
+  }
+
+
+  // helper, because i always have to repeat doing this.
+  private int getValidIntInput(Scanner scanner, int max) {
+    int choice;
     while (true) {
-      System.out.print("\n-> ");
-      int seedChoice = scanner.nextInt();
-
-      if (seedChoice < 1 || seedChoice > availableCrops.size()) {
-        System.out.println("Error: Please select a number from 1 to " + availableCrops.size() + ".");
-        continue;
-      }  
-
-      Crop chosenSeed = availableCrops.get(seedChoice - 1);
-
-      if (player.getLevel() < chosenSeed.getLevelRequired()) {
-        System.out.println("You must be level " + chosenSeed.getLevelRequired() + " to plant " + chosenSeed.getName() + ".");
+      System.out.print("-> ");
+      if(!scanner.hasNextInt()) {
+        System.out.println("[Error] Please enter a number.");
+        scanner.nextLine(); 
         continue;
       }
 
-      System.out.print("How many would you like to plant? -> ");
-      int quantity = scanner.nextInt();
+      choice = scanner.nextInt();
+      scanner.nextLine();
 
-      if (quantity < 1) {
-        System.out.println("Please enter a valid quantity.");
+      if(choice < 1 || choice > max) {
+        System.out.println("[Error] Choose 1-" + max + ".");
         continue;
       }
 
-      for (int i = 0; i < quantity; i++) {
-        Crop newCrop = chosenSeed.createCopy();
-        plantedCrops.add(newCrop);
-      }
-      
-      System.out.println("Successfully planted " + quantity + " " + chosenSeed.getName() + " crop(s)!");
-      break;
+      return choice;
     }
   }
 }
+

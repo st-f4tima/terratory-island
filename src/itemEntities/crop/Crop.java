@@ -48,31 +48,20 @@ public abstract class Crop extends Item {
   }
 
   // Methods
-  public void waterCrops() {
-    if (!isWatered) {
-      isWatered = true;
-      System.out.println("The crops have been watered.");
-    } else {
-      System.out.println("The crops are already watered.");
-    }
+  public void water() {
+    isWatered = true;
   }
 
   public void applyFertilizer() {
-    if (!isFertilized) {
-      isFertilized = true;
-      System.out.println("The crops have been fertilized.");
-    } else {
-      System.out.println("The crops are already fertilized.");
-    }
+    isFertilized = true;
   }
 
   public void harvest() {
-    if (isWatered && isFertilized) {
-      isHarvested = true;
-      System.out.println("You harvested a " + getName() + "!");
-    } else {
-      System.out.println("The crops aren't ready for harvest yet.");
-    }
+    isHarvested = true;
+  }
+
+  public boolean canBeHarvested() {
+    return isHarvested && isFertilized && !isHarvested;
   }
   
   @Override
