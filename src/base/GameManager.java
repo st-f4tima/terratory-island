@@ -138,7 +138,7 @@ public class GameManager {
     }
   }
 
-  // TODO: Implement visitAnimalBarn()
+  // gema, your part here
 
   public void visitFishingDock(Scanner scanner) {
     System.out.println("\n──────────────── FISHING DOCK ───────────────\n");
