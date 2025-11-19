@@ -9,8 +9,6 @@ public class GameManager {
   private String currentSeason;
   private CropManager cropManager;
   private FishManager fishManager;
-
-  private static final int DAYS_PER_SEASON = 28;
   
   public GameManager() {
     this.currentSeason = "Spring";
@@ -115,7 +113,7 @@ public class GameManager {
         System.out.println("Thank you!"); // not final msg
         return;
       } else {
-        System.out.println("\nError: Please select a number from 1 to 7.");
+        System.out.println("[Error] Please select a number from 1 to 7.");
       }
     }
   }
@@ -125,8 +123,8 @@ public class GameManager {
       System.out.println("\n──────────────── FARM FIELDS ────────────────\n");
       System.out.println("\"Sun's out, tools out! What mischief-I mean, farming-shall we do today?\"\n");
       System.out.println("1. Plant New Seeds");
-      System.out.println("2. Apply Fertilizer");
-      System.out.println("3. Water Your Crops");
+      System.out.println("2. Water Your Crops");
+      System.out.println("3. Apply Fertilizer");
       System.out.println("4. Harvest Your Crops");
       System.out.println("5. I want to do something else");
       System.out.print("\n-> ");
@@ -138,7 +136,7 @@ public class GameManager {
           cropManager.plantSeeds(currentSeason, player, scanner);
 
           while (true) {
-              System.out.print("\nPlant again? (y/n) -> ");
+              System.out.print("\nPlant again? (y/n): ");
               String plantAgain = scanner.next().trim().toLowerCase();
 
               if (plantAgain.equals("y")) {
@@ -150,14 +148,14 @@ public class GameManager {
                   break; 
               } 
               else {
-                  System.out.println("\nError: Please enter 'y' or 'n'.");
+                  System.out.println("[Error] Please enter 'y' or 'n'.");
               }
           }
         } 
-        else if (farmMenuChoice == 3) {
-            // cropManager.waterCrops(scanner);
-            break;
-        }
+        else if (farmMenuChoice == 2) {
+            cropManager.waterCrops(scanner);
+            continue;
+        } 
     }
 }
 
@@ -181,7 +179,7 @@ public class GameManager {
         displayMenu(scanner);
         break;
       } else {
-        System.out.println("Error: Please select a number from 1 to 2.");
+        System.out.println("[Error] Please select a number from 1 to 2.");
       }
     }
   }

@@ -1,6 +1,5 @@
 package managers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +40,7 @@ public class CropManager {
     }
 
     // display available crops for the current season
+    System.out.println("\nAvailable Seeds:");
     for(int i = 0; i < availableCrops.size(); i++) {
       Crop crop = availableCrops.get(i);
       System.out.printf("%d. %-15s (Lvl Req: %d)\n", (i + 1), crop.getName(), crop.getLevelRequired());
@@ -59,13 +59,53 @@ public class CropManager {
 
     int quantity = getValidIntInput(scanner, 99); 
     for (int i = 0; i < quantity; i++) {
-      cropInventory.plantCrop(chosenSeed.createCopy());
-      System.out.println("\n[Success] You planted " + quantity + " " + chosenSeed.getName() + "(s)!");
+      cropInventory.plantCrops(chosenSeed.createCopy());
+    }
+    System.out.println("\n[Success] You planted " + quantity + " " + chosenSeed.getName() + "(s)!");
+
+  }
+
+
+  public void waterCrops(Scanner scanner) {
+    if(!cropInventory.hasPlantedCrops()) {
+      System.out.println("\nYou have no crops planted.");
+      return;
+    }
+
+    System.out.println("\n──────────────── WATER CROPS ────────────────\n");
+
+    List <Crop> plantedCrops = cropInventory.getPlantedCrops();
+
+    for(int i = 0; i < plantedCrops.size(); i++) {
+      Crop crop = plantedCrops.get(i);
+      String cropStatus;
+      if(crop.isWatered()) {
+        cropStatus = "[Watered]";
+      } else {
+        cropStatus = "[Dry]";
+      }
+
+      System.out.printf("%d. %-12s %s\n", (i + 1), crop.getName(), cropStatus);
+    }
+
+    System.out.println("\n\"So, farmer genius, what's the move?\"");
+    System.out.println("1. Water all crops");
+    System.out.println("2. Do something else\n");
+
+
+    int choice = getValidIntInput(scanner, 2);
+    if(choice == 1) {
+      for(Crop crop : plantedCrops) {
+        crop.water();
+      }
+      System.out.println("\nYou watered all your crops!");
+      System.out.println("\nPress ENTER to continue...");
+      scanner.nextLine(); 
     }
   }
 
 
-  // helper, because i always have to repeat doing this.
+  // helper
   private int getValidIntInput(Scanner scanner, int max) {
     int choice;
     while (true) {
