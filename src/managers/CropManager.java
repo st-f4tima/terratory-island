@@ -2,15 +2,9 @@ package managers;
 
 import java.util.List;
 import itemEntities.crop.Crop;
-import itemEntities.crop.fall.Grape;
-import itemEntities.crop.fall.Pumpkin;
-import itemEntities.crop.fall.SweetGemBerry;
-import itemEntities.crop.spring.Cauliflower;
-import itemEntities.crop.spring.Potato;
-import itemEntities.crop.spring.Strawberry;
-import itemEntities.crop.summer.Melon;
-import itemEntities.crop.summer.Starfruit;
-import itemEntities.crop.summer.Wheat;
+import itemEntities.crop.spring.*;
+import itemEntities.crop.summer.*;
+import itemEntities.crop.fall.*;
 
 public class CropManager {
   List<Crop> springCrops;
@@ -25,7 +19,7 @@ public class CropManager {
 
   public void displayAvailableCrops(String currentSeason ) {
     System.out.println("\n────────────── AVAILABLE CROPS ──────────────\n");
-    System.out.println("Seasong: " + currentSeason);
+    System.out.println("Season: " + currentSeason);
 
     List<Crop> availableCrops;
 

@@ -2,7 +2,6 @@ package managers;
 
 import java.util.List;
 import java.util.Random;
-import base.GameManager;
 import itemEntities.fish.Fish;
 import itemEntities.fish.fall.*;
 import itemEntities.fish.spring.*;
