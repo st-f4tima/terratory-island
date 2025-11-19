@@ -14,4 +14,9 @@ public class Grape extends Crop{
       false
     );
   }
+
+  @Override
+  public Crop createCopy() {
+    return new Grape();
+  }
 }

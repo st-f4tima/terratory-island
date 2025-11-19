@@ -14,4 +14,9 @@ public class SweetGemBerry extends Crop{
       false
     );
   }
+
+  @Override
+  public Crop createCopy() {
+    return new SweetGemBerry();
+  }
 }

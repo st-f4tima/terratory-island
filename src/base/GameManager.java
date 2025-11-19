@@ -7,9 +7,13 @@ import managers.FishManager;
 public class GameManager {
   private Player player;
   private String currentSeason;
+  private CropManager cropManager;
+  private FishManager fishManager;
   
   public GameManager() {
     this.currentSeason = "Spring";
+    this.cropManager = new CropManager();
+    this.fishManager = new FishManager();
   }
 
   public static boolean displayIntro(Scanner scanner) {
@@ -27,16 +31,15 @@ public class GameManager {
 
     while (true) {
       System.out.print("\nExplore the island? (y/n): ");
-      char answer = Character.toLowerCase(scanner.next().charAt(0));
-      scanner.nextLine(); // clears leftover newline hehe, i dont know
+      String answer = scanner.nextLine().trim().toLowerCase();
 
-      if (answer == 'y') {
+      if (answer.equals("y")) {
         return true;
-      } else if (answer == 'n') {
+      } else if (answer.equals("n")) {
         System.out.println("\n\"You decide against exploring.\nThe storm settles, and you set sail again.\"\n");
         return false;
       } else {
-        System.out.println("Invalid Input.");
+        System.out.println("Invalid Input. Please enter 'y' or 'n'.");
       }
     }
   }
@@ -56,50 +59,48 @@ public class GameManager {
   }
 
   public void displayMenu(Scanner scanner) {
-    // not final
-    System.out.println("\n──────────────── MAIN MENU ────────────────");
-    System.out.println("\nWelcome, " + player.getUsername() + " of " + player.getIslandName() + "!");
-    System.out.println("Day " + player.getDayCount() + " - Season: " + currentSeason);
-
-    System.out.println("\nWhat would you like to do today?");
-
-    System.out.printf("\n%-25s %-25s %-25s\n",
-      "--- Activities ---",
-      "--- Management ---",
-      "--- System ---"
-    );
-
-    System.out.printf("%-25s %-25s %-25s\n",
-      "1. Check Farm Fields", 
-      "4. Open Inventory", 
-      "6. Proceed to Next Day"
-    );
-
-    System.out.printf("%-25s %-25s %-25s\n",
-      "2. Visit Animal Barn", 
-      "5. View Profile", 
-      "7. Leave Game"
-    );
-
-    System.out.printf("%-25s %-25s %-25s\n",
-      "3. Visit Fishing Dock", 
-      "", 
-      ""
-    );
-
     while (true) {
+      System.out.println("\n──────────────── MAIN MENU ────────────────");
+      System.out.println("\nWelcome, " + player.getUsername() + " of " + player.getIslandName() + "!");
+      System.out.println("Day " + player.getDayCount() + " - Season: " + currentSeason);
+
+      System.out.println("\nWhat would you like to do today?");
+
+      System.out.printf("\n%-25s %-25s %-25s\n",
+        "--- Activities ---",
+        "--- Management ---",
+        "--- System ---"
+      );
+
+      System.out.printf("%-25s %-25s %-25s\n",
+        "1. Check Farm Fields", 
+        "4. Open Inventory", 
+        "6. Proceed to Next Day"
+      );
+
+      System.out.printf("%-25s %-25s %-25s\n",
+        "2. Visit Animal Barn", 
+        "5. View Profile", 
+        "7. Leave Game"
+      );
+
+      System.out.printf("%-25s %-25s %-25s\n",  
+        "3. Visit Fishing Dock", 
+        "", 
+        ""
+      );
+
       System.out.print("\n-> ");
       int menuChoice = scanner.nextInt();
 
       if (menuChoice == 1) {
         checkFarmFields(scanner); // Fatima
-        break;
+        continue;
       } else if (menuChoice == 2) {
         // visitAnimalBarn(); - Gema
-        break;
       } else if (menuChoice == 3) {
-          visitFishingDock(scanner);
-        break;
+        visitFishingDock(scanner);
+        continue;
       } else if (menuChoice == 4) {
         // openInventory();
       } else if (menuChoice == 5) {
@@ -112,33 +113,74 @@ public class GameManager {
         System.out.println("Thank you!"); // not final msg
         return;
       } else {
-        System.out.println("Error: Please select a number from 1 to 7.");
+        System.out.println("[Error] Please select a number from 1 to 7.");
       }
     }
   }
 
   public void checkFarmFields(Scanner scanner) {
-    System.out.println("\n──────────────── FARM FIELDS ────────────────\n");
-    System.out.println("\"Sun's out, tools out! What mischief-I mean, farming-shall we do today?\"\n");
-    System.out.println("1. Plant New Seeds");
-    System.out.println("2. Apply Fertilizer");
-    System.out.println("3. Water Your Crops");
-    System.out.println("4. Harvest Your Crops");
-    System.out.println("5. I want to do something else");
     while (true) {
+      System.out.println("\n──────────────── FARM FIELDS ────────────────\n");
+      System.out.println("\"Sun's out, tools out! What mischief-I mean, farming-shall we do today?\"\n");
+      System.out.println("1. Plant New Seeds");
+      System.out.println("2. Water Your Crops");
+      System.out.println("3. Apply Fertilizer");
+      System.out.println("4. Harvest Your Crops");
+      System.out.println("5. I want to do something else");
       System.out.print("\n-> ");
-      int farmMenuChoice = scanner.nextInt();
 
-      CropManager cropManager = new CropManager();
+      int farmMenuChoice = scanner.nextInt();
+      scanner.nextLine(); 
+      
       if (farmMenuChoice == 1) {
-        cropManager.displayAvailableCrops(currentSeason);
-        break;
-      }
-      // TODO: Finish checkFarmFields menu
+          cropManager.plantSeeds(currentSeason, player, scanner);
+
+          while (true) {
+              System.out.print("\nPlant again? (y/n): ");
+              String plantAgain = scanner.next().trim().toLowerCase();
+
+              if (plantAgain.equals("y")) {
+                  cropManager.plantSeeds(currentSeason, player, scanner);
+              } 
+              else if (plantAgain.equals("n")) {
+                  System.out.println("\nPress ENTER to go back...");
+                  scanner.nextLine(); 
+                  break; 
+              } 
+              else {
+                  System.out.println("[Error] Please enter 'y' or 'n'.");
+              }
+          }
+        } 
+        else if (farmMenuChoice == 2) {
+            cropManager.waterCrops(scanner);
+            continue;
+        } 
     }
   }
 
-  // gema, your part here
+  // visit the animals
+  public void visitAnimalBarn(Scanner scanner) {
+    System.out.println("\n──────────────── ANIMAL BARN ───────────────\n");
+    System.out.println("\"Time to check on your friends!~ What needs doing in the barn today?\"\n");
+    System.out.println("1. Feed Animals");
+    System.out.println("2. Breed Animals");
+    System.out.println("3. Collect Produce");
+    System.out.println("4. They're alright, I'll go do something else");
+
+    while (true) { 
+      System.out.print("\nSelect from 1-4: ");
+      int barnMenuChoice = scanner.nextInt();
+
+      /*  WIP
+      LivestockManager livestockManager = scanner.nextInt();
+      if (barnMenuChoice == 1) {
+        
+      }
+      */
+    }
+
+  }
 
   public void visitFishingDock(Scanner scanner) {
     System.out.println("\n──────────────── FISHING DOCK ───────────────\n");
@@ -147,10 +189,9 @@ public class GameManager {
     System.out.println("2. I want to do something else");
     
     while (true) {
-      System.out.print("\nSelect from 1 - 2: ");
+      System.out.print("\n-> ");
       int fishingMenuChoice = scanner.nextInt();
 
-      FishManager fishManager = new FishManager();
       if (fishingMenuChoice == 1) {
         fishManager.catchFish(currentSeason);
         break;
@@ -158,7 +199,7 @@ public class GameManager {
         displayMenu(scanner);
         break;
       } else {
-        System.out.println("Error: Please select a number from 1 to 2.");
+        System.out.println("[Error] Please select a number from 1 to 2.");
       }
     }
   }

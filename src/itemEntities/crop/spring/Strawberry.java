@@ -14,5 +14,10 @@ public class Strawberry extends Crop{
       false
     );
   }
+
+  @Override
+  public Crop createCopy() {
+    return new Strawberry();
+  }
 }
 

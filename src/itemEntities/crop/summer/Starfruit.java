@@ -14,4 +14,9 @@ public class Starfruit extends Crop{
       false
     );
   }
+
+  @Override
+  public Crop createCopy() {
+    return new Starfruit();
+  }
 }

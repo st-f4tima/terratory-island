@@ -14,4 +14,9 @@ public class Melon extends Crop{
       false
     );
   }
+
+  @Override
+  public Crop createCopy() {
+    return new Melon();
+  }
 }

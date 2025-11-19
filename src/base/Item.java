@@ -4,12 +4,12 @@ package base;
 public abstract class Item {
   private String name;
   private int cost;
-  private int unlockLevel;
+  private int levelRequired;
 
-  public Item(String name, int cost, int unlockLevel) {
+  public Item(String name, int cost, int levelRequired ) {
     this.name = name;
     this.cost = cost;
-    this.unlockLevel = unlockLevel;
+    this.levelRequired = levelRequired;
   }
 
   public abstract int sell();
@@ -23,10 +23,7 @@ public abstract class Item {
     return cost;
   }
 
-  public int getUnlockLevel() {
-    return unlockLevel;
+  public int getLevelRequired() {
+    return levelRequired;
   }
-
-  // setters (not yet sure if gustong nyong naeedit sila)
-
 }

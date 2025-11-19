@@ -13,4 +13,9 @@ public class Wheat extends Crop{
     false
     );
   }
+
+  @Override
+  public Crop createCopy() {
+    return new Wheat();
+  }
 }
