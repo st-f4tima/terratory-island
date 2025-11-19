@@ -14,5 +14,10 @@ public class Cauliflower extends Crop{
       false
     );
   }
+
+  @Override
+  public Crop createCopy() {
+    return new Cauliflower();
+  }
 }
 

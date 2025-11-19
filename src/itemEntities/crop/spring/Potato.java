@@ -2,6 +2,7 @@ package itemEntities.crop.spring;
 
 import itemEntities.crop.Crop;
 
+
 public class Potato extends Crop{
   public Potato() {
     super(
@@ -13,6 +14,11 @@ public class Potato extends Crop{
       false,
       false
     );
+  }
+
+  @Override
+  public Crop createCopy() {
+    return new Potato();
   }
 }
 

@@ -3,6 +3,9 @@ package base;
 import java.util.HashMap;
 import java.util.Map;
 
+import inventoryEntities.CropInventory;
+import inventoryEntities.LivestockInventory;
+
 public class Player {
   private String username;
   private String islandName;
@@ -10,8 +13,8 @@ public class Player {
   private int xp;
   private int coins;
   private int dayCount;
-  private Map<String, Integer> cropInventory;
-  private Map<String, Integer> livestockInventory;
+  private CropInventory cropInventory;
+  private LivestockInventory livestockInventory;
   private Map<String, Integer> fishInventory;
 
   public Player(String username, String islandName) {
@@ -21,8 +24,8 @@ public class Player {
     this.xp = 0;
     this.coins = 0;
     this.dayCount = 1;
-    this.cropInventory = new HashMap<>();
-    this.livestockInventory = new HashMap<>();
+    this.cropInventory = new CropInventory();
+    this.livestockInventory = new LivestockInventory();
     this.fishInventory = new HashMap<>();
   }
 
@@ -49,14 +52,6 @@ public class Player {
 
   public int getDayCount() {
     return this.dayCount;
-  }
-
-  public Map<String, Integer> getCropInventory() {
-    return this.cropInventory;
-  }
-
-  public Map<String, Integer> getLivestockInventory() {
-    return this.livestockInventory;
   }
 
   public Map<String, Integer> getFishInventory() {

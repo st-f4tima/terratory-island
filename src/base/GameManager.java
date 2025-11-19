@@ -131,7 +131,7 @@ public class GameManager {
 
       CropManager cropManager = new CropManager();
       if (farmMenuChoice == 1) {
-        cropManager.displayAvailableCrops(currentSeason);
+        // cropManager.displayAvailableCrops(currentSeason);
         break;
       }
       // TODO: Finish checkFarmFields menu
