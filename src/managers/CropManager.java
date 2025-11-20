@@ -1,5 +1,6 @@
 package managers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +16,12 @@ import itemEntities.crop.fall.*;
 public class CropManager {
   private CropInventory cropInventory;
   private Map<String, List<Crop>> cropCollection;
+  private List<Crop> plantedCrops;
 
   public CropManager() {
     this.cropInventory = new CropInventory();
     this.cropCollection = new HashMap<>();
+    this.plantedCrops = new ArrayList<>();
     initializeCrops();
   }
 
@@ -46,7 +49,7 @@ public class CropManager {
       System.out.printf("%d. %-15s (Lvl Req: %d)\n", (i + 1), crop.getName(), crop.getLevelRequired());
     }
 
-    System.out.println("\nChoose a seed to plant:");
+    System.out.print("\nChoose a seed to plant:");
     int seedChoice = getValidIntInput(scanner, availableCrops.size());
     Crop chosenSeed = availableCrops.get(seedChoice - 1);
 
@@ -55,42 +58,80 @@ public class CropManager {
       return;
     }
 
-    System.out.println("\nSpecify the number of seeds to plant:");
-
+    System.out.print("\nSpecify the number of seeds to plant:");
     int quantity = getValidIntInput(scanner, 99); 
+
     for (int i = 0; i < quantity; i++) {
-      cropInventory.plantCrops(chosenSeed.createCopy());
+      this.plantedCrops.add(chosenSeed.createCopy());
     }
     System.out.println("\n[Success] You planted " + quantity + " " + chosenSeed.getName() + "(s)!");
 
+      while (true) {
+      System.out.print("\nPlant again? (y/n): ");
+      String plantAgain = scanner.next().trim().toLowerCase();
+
+      if (plantAgain.equals("y")) {
+        scanner.nextLine();
+        plantSeeds(currentSeason, player, scanner);
+        return;
+      } 
+      else if (plantAgain.equals("n")) {
+          System.out.println("\nPress ENTER to go back...");
+          scanner.nextLine(); 
+          scanner.nextLine(); 
+          return; 
+      } 
+      else {
+          System.out.println("[Error] Please enter 'y' or 'n'.");
+      }
+    }
   }
 
-
   public void waterCrops(Scanner scanner) {
-    if(!cropInventory.hasPlantedCrops()) {
+    if(this.plantedCrops.isEmpty()) {
       System.out.println("\nYou have no crops planted.");
       return;
     }
 
     System.out.println("\n──────────────── WATER CROPS ────────────────\n");
 
-    List <Crop> plantedCrops = cropInventory.getPlantedCrops();
-
-    for(int i = 0; i < plantedCrops.size(); i++) {
-      Crop crop = plantedCrops.get(i);
-      String cropStatus;
-      if(crop.isWatered()) {
-        cropStatus = "[Watered]";
-      } else {
-        cropStatus = "[Dry]";
+    Map<String, List<Crop>> groupedCrops = new HashMap<>();
+    for(Crop crop : plantedCrops) {
+      String cropName = crop.getName();
+      if(!groupedCrops.containsKey(cropName)) {
+        groupedCrops.put(cropName, new ArrayList<>());
       }
 
-      System.out.printf("%d. %-12s %s\n", (i + 1), crop.getName(), cropStatus);
+      groupedCrops.get(cropName).add(crop);
     }
 
-    System.out.println("\n\"So, farmer genius, what's the move?\"");
+    int index = 1;
+    for(String cropName : groupedCrops.keySet()) {
+      List<Crop> group = groupedCrops.get(cropName);
+      int cropCount = group.size();
+
+      int totalYield = cropCount * group.get(0).getYieldAmount();
+      
+      boolean allWatered = true;
+      for(Crop crop : group) {
+        if(!crop.isWatered()) {
+          allWatered = false;
+          break;
+        }
+      }
+  
+      String cropStatus = allWatered ? "[Watered]" : "[Dry]";
+      
+      System.out.printf("%d. %-12s %s\n", index++, "Crop:", cropName);
+      System.out.printf("   %-12s %dx\n", "Quantity:", cropCount);
+      System.out.printf("   %-12s %s\n", "Status:", cropStatus);
+      System.out.printf("   %-12s %d\n", "Est Yield:", totalYield);
+    }
+
+    System.out.println("\n\n\"So, farmer genius, what's the move?\"");
     System.out.println("1. Water all crops");
-    System.out.println("2. Do something else\n");
+    System.out.println("2. Do something else");
+    System.out.print("->");
 
 
     int choice = getValidIntInput(scanner, 2);
@@ -104,12 +145,11 @@ public class CropManager {
     }
   }
 
-
   // helper
   private int getValidIntInput(Scanner scanner, int max) {
     int choice;
     while (true) {
-      System.out.print("-> ");
+      System.out.print(" ");
       if(!scanner.hasNextInt()) {
         System.out.println("[Error] Please enter a number.");
         scanner.nextLine(); 
@@ -123,7 +163,6 @@ public class CropManager {
         System.out.println("[Error] Choose 1-" + max + ".");
         continue;
       }
-
       return choice;
     }
   }
