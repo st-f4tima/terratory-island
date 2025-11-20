@@ -64,7 +64,7 @@ public class GameManager {
       System.out.println("\nWelcome, " + player.getUsername() + " of " + player.getIslandName() + "!");
       System.out.println("Day " + player.getDayCount() + " - Season: " + currentSeason);
 
-      System.out.println("\nWhat would you like to do today?");
+      System.out.println("\n\"What would you like to do today?\"");
 
       System.out.printf("\n%-25s %-25s %-25s\n",
         "--- Activities ---",
@@ -134,25 +134,8 @@ public class GameManager {
       
       if (farmMenuChoice == 1) {
           cropManager.plantSeeds(currentSeason, player, scanner);
-
-          while (true) {
-              System.out.print("\nPlant again? (y/n): ");
-              String plantAgain = scanner.next().trim().toLowerCase();
-
-              if (plantAgain.equals("y")) {
-                  cropManager.plantSeeds(currentSeason, player, scanner);
-              } 
-              else if (plantAgain.equals("n")) {
-                  System.out.println("\nPress ENTER to go back...");
-                  scanner.nextLine(); 
-                  break; 
-              } 
-              else {
-                  System.out.println("[Error] Please enter 'y' or 'n'.");
-              }
-          }
-        } 
-        else if (farmMenuChoice == 2) {
+          continue;
+        } else if (farmMenuChoice == 2) {
             cropManager.waterCrops(scanner);
             continue;
         } 

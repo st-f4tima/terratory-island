@@ -1,30 +1,17 @@
 package inventoryEntities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import base.Inventory;
 import itemEntities.crop.Crop;
 
-public class CropInventory {
-  private List<Crop> plantedCrops;
-  // private List<Crop> harvestedCrops;
+public class CropInventory extends Inventory {
+  
 
   public CropInventory() {
-    this.plantedCrops = new ArrayList<>();
-    // this.harvestedCrops = new ArrayList<>();
+    super();
   }
+  @Override
+  public void viewData() {
 
-  public void plantCrops(Crop crop) {
-    plantedCrops.add(crop);
-  }
-
-  public List<Crop> getPlantedCrops() {
-    return plantedCrops;
-  }
-
-  public boolean hasPlantedCrops() {
-    if(plantedCrops.isEmpty()) {
-      return false;
-    } 
-    return true;
   }
 }
