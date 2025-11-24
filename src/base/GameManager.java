@@ -39,7 +39,7 @@ public class GameManager {
         System.out.println("\n\"You decide against exploring.\nThe storm settles, and you set sail again.\"\n");
         return false;
       } else {
-        System.out.println("Invalid Input. Please enter 'y' or 'n'.");
+        System.out.println("[Error] Invalid Input. Please enter 'y' or 'n'.");
       }
     }
   }
@@ -120,8 +120,9 @@ public class GameManager {
 
   public void checkFarmFields(Scanner scanner) {
     while (true) {
-      System.out.println("\n──────────────── FARM FIELDS ────────────────\n");
-      System.out.println("\"Sun's out, tools out! What mischief-I mean, farming-shall we do today?\"\n");
+      System.out.println("\n──────────────── FARM FIELDS ────────────────");
+      cropManager.displayCropSummary();
+      System.out.println("\n\"Sun's out, tools out! What mischief-I mean, farming-shall we do today?\"\n");
       System.out.println("1. Plant New Seeds");
       System.out.println("2. Water Your Crops");
       System.out.println("3. Apply Fertilizer");
@@ -133,12 +134,22 @@ public class GameManager {
       scanner.nextLine(); 
       
       if (farmMenuChoice == 1) {
-          cropManager.plantSeeds(currentSeason, player, scanner);
-          continue;
-        } else if (farmMenuChoice == 2) {
-            cropManager.waterCrops(scanner);
-            continue;
-        } 
+        cropManager.plantSeeds(currentSeason, player, scanner);
+        continue;
+      } else if (farmMenuChoice == 2) {
+        cropManager.waterCrops(scanner);
+        continue;
+      } else if(farmMenuChoice == 3) {
+        cropManager.fertilizeCrops(scanner);
+        continue;
+      } else if (farmMenuChoice == 4) {
+        cropManager.harvestCrops(scanner);
+        continue;
+      } else if (farmMenuChoice == 5) {
+        return;
+      } else {
+        System.out.println("[Error] Please select a number from 1 to 5.");
+      }
     }
   }
 

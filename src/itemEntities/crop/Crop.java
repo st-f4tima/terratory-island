@@ -5,6 +5,7 @@ import base.Item;
 public abstract class Crop extends Item {
   protected String season;
   protected int growthDays;
+  protected int daysGrown;
   protected int yieldAmount;
   protected boolean isWatered;
   protected boolean isFertilized;
@@ -14,6 +15,7 @@ public abstract class Crop extends Item {
     super(name, cost, levelRequired);
     this.season = season;
     this.growthDays = growthDays;
+    this.daysGrown = 0;
     this.yieldAmount = 16;
     this.isWatered = isWatered;
     this.isFertilized = isFertilized;
@@ -33,6 +35,10 @@ public abstract class Crop extends Item {
 
   public int getGrowthDays() {
     return growthDays;
+  }
+
+  public int getDaysGrown() {
+    return daysGrown;
   }
 
   public boolean isWatered() {
@@ -56,12 +62,20 @@ public abstract class Crop extends Item {
     isFertilized = true;
   }
 
+  public void grow() {
+    if (isWatered && isFertilized &&  !isHarvested) {
+        daysGrown++;
+        isWatered = false; 
+        isFertilized = false;
+    }
+  }
+
   public void harvest() {
     isHarvested = true;
   }
 
-  public boolean canBeHarvested() {
-    return isHarvested && isFertilized && !isHarvested;
+  public boolean isHarvestable() {
+    return daysGrown >= growthDays && !isHarvested;
   }
   
   @Override
