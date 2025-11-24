@@ -55,13 +55,13 @@ public class CropManager {
       String days = crop.getDaysGrown() + "/" + crop.getGrowthDays();
 
       System.out.printf("│%-5s│%-10s│%-9s│%-10s│%-12s│%-13s│%-13d│\n",
-              "T" + tileNumber,
-              crop.getName(),
-              days,
-              watered,
-              fertilized,
-              harvestable,
-              crop.getYieldAmount());
+      "T" + tileNumber,
+      crop.getName(),
+      days,
+      watered,
+      fertilized,
+      harvestable,
+      crop.getYieldAmount());
       tileNumber++;
     }
     System.out.println(bottomLine);
@@ -92,7 +92,7 @@ public class CropManager {
 
     if (player.getLevel() < chosenSeed.getLevelRequired()) {
       System.out.println("\n[!] You must be level " + chosenSeed.getLevelRequired() + " to plant " + chosenSeed.getName() + ".");
-      waitEnter(scanner);
+      scanner.nextLine();
       return;
     }
 

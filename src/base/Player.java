@@ -61,6 +61,7 @@ public class Player {
   // methods
   public void gainXP(int amount) {
     this.xp += amount;
+    checkLevelUp();
   }
 
   public void gainCoins(int amount) {
@@ -69,5 +70,17 @@ public class Player {
 
   public void nextDay() {
     this.dayCount++;
+  }
+
+  public int getRequiredXP() {
+    return 10 * this.level;
+  }
+
+  private void checkLevelUp() {
+    while (this.xp >= getRequiredXP()) {
+      this.xp -= getRequiredXP();
+      this.level++;
+      System.out.println("Congratulations! You reached Level " + this.level + "!");
+    }
   }
 }

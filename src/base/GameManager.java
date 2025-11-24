@@ -62,7 +62,7 @@ public class GameManager {
     while (true) {
       System.out.println("\n──────────────── MAIN MENU ────────────────");
       System.out.println("\nWelcome, " + player.getUsername() + " of " + player.getIslandName() + "!");
-      System.out.println("Day " + player.getDayCount() + " - Season: " + currentSeason);
+      System.out.printf("Day: %-3d Season: %-8s Level: %d [%d / %d XP]\n", player.getDayCount(), currentSeason,player.getLevel(), player.getXP(), player.getRequiredXP());
 
       System.out.println("\n\"What would you like to do today?\"");
 
