@@ -16,7 +16,7 @@ public abstract class Inventory {
 
         int currentQ = this.itemCount.getOrDefault(itemName, 0);
         this.itemCount.put(itemName, currentQ + quantity);
-        System.out.println("Collected " +quantity +" " +itemName +"/s.");
+        System.out.println("\nCollected " +quantity +" " +itemName +"/s.");
     }
 
     // map of all items in store

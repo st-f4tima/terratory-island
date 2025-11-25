@@ -54,10 +54,10 @@ public class Player {
     return this.dayCount;
   }
 
-  public Map<String, Integer> getFishInventory() {
-    return this.fishInventory;
+  public CropInventory getCropInventory() {
+    return this.cropInventory;
   }
-
+  
   // methods
   public void gainXP(int amount) {
     this.xp += amount;

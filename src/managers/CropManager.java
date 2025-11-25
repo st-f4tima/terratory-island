@@ -7,19 +7,19 @@ import java.util.Map;
 import java.util.Scanner;
 import base.Player;
 import itemEntities.crop.Crop;
-import inventoryEntities.CropInventory;
+import utils.InputUtils;
 
 import itemEntities.crop.spring.*;
 import itemEntities.crop.summer.*;
 import itemEntities.crop.fall.*;
 
 public class CropManager {
-  private CropInventory cropInventory;
+  private Player player;
   private Map<String, List<Crop>> cropCollection;
   private List<Crop> plantedCrops;
 
-  public CropManager() {
-    this.cropInventory = new CropInventory();
+  public CropManager(Player player) {
+    this.player = player;
     this.cropCollection = new HashMap<>();
     this.plantedCrops = new ArrayList<>();
     initializeCrops();
@@ -33,25 +33,26 @@ public class CropManager {
 
   public void displayCropSummary() {
     if (plantedCrops.isEmpty()) {
-      System.out.println("\nNo crops planted yet.");
+      System.out.println("\nCROP SUMMARY:");
+      System.out.print("No crops planted yet.\n");
       return;
     }
 
-    String line = "┌─────┬──────────┬─────────┬──────────┬────────────┬─────────────┬─────────────┐";
-    String middleLine = "├─────┼──────────┼─────────┼──────────┼────────────┼─────────────┼─────────────┤";
+    String topLine = "┌─────┬──────────┬─────────┬──────────┬────────────┬─────────────┬─────────────┐";
+    String seperator = "├─────┼──────────┼─────────┼──────────┼────────────┼─────────────┼─────────────┤";
     String bottomLine = "└─────┴──────────┴─────────┴──────────┴────────────┴─────────────┴─────────────┘";
 
-    System.out.println("\nCrop Summary:");
-    System.out.println(line);
+    System.out.println("\nCROP SUMMARY:");
+    System.out.println(topLine);
     System.out.printf("│%-5s│%-10s│%-9s│%-10s│%-12s│%-13s│%-13s│\n",
             "Tile", "Crop", "Days", "Watered", "Fertilized", "Harvestable", "Est. Yield");
-    System.out.println(middleLine);
+    System.out.println(seperator);
 
     int tileNumber = 1;
     for (Crop crop : plantedCrops) {
-      String watered = crop.isWatered() ? "Yes" : "No";
-      String fertilized = crop.isFertilized() ? "Yes" : "No";
-      String harvestable = crop.isHarvestable() ? "Yes" : "No";
+      String watered = crop.isWatered() ? "Hydrated" : "Dry";
+      String fertilized = crop.isFertilized() ? "Enriched" : "Basic";
+      String harvestable = crop.isHarvestable() ? "Mature" : "Growing";
       String days = crop.getDaysGrown() + "/" + crop.getGrowthDays();
 
       System.out.printf("│%-5s│%-10s│%-9s│%-10s│%-12s│%-13s│%-13d│\n",
@@ -75,7 +76,7 @@ public class CropManager {
 
     if(availableCrops == null) {
       System.out.println("No crops can be planted in " + currentSeason + ".");
-      waitEnter(scanner);
+      InputUtils.waitEnter(scanner);
       return;
     }
 
@@ -83,21 +84,21 @@ public class CropManager {
     System.out.println("\nAvailable Seeds:");
     for(int i = 0; i < availableCrops.size(); i++) {
       Crop crop = availableCrops.get(i);
-      System.out.printf("%d. %-15s (Lvl Req: %d)\n", (i + 1), crop.getName(), crop.getLevelRequired());
+      System.out.printf("[%d] %-15s (Lvl Req: %d)\n", (i + 1), crop.getName(), crop.getLevelRequired());
     }
 
     System.out.print("\nChoose a seed to plant:");
-    int seedChoice = getValidIntInput(scanner, availableCrops.size());
+    int seedChoice = InputUtils.getValidIntInput(scanner, availableCrops.size());
     Crop chosenSeed = availableCrops.get(seedChoice - 1);
 
     if (player.getLevel() < chosenSeed.getLevelRequired()) {
       System.out.println("\n[!] You must be level " + chosenSeed.getLevelRequired() + " to plant " + chosenSeed.getName() + ".");
-      scanner.nextLine();
+      InputUtils.waitEnter(scanner);
       return;
     }
 
     System.out.print("\nSpecify the number of seeds to plant:");
-    int quantity = getValidIntInput(scanner, 99); 
+    int quantity = InputUtils.getValidIntInput(scanner, 99); 
 
     for (int i = 0; i < quantity; i++) {
       this.plantedCrops.add(chosenSeed.createCopy());
@@ -115,7 +116,8 @@ public class CropManager {
         return;
       } 
       else if (plantAgain.equals("n")) {
-        waitEnter(scanner);
+        InputUtils.waitEnter(scanner);
+        scanner.nextLine();
         return; 
       } 
       else {
@@ -129,7 +131,7 @@ public class CropManager {
 
     if (plantedCrops.isEmpty()) {
       System.out.println("\nNo crops planted.");
-      waitEnter(scanner);
+      InputUtils.waitEnter(scanner);
       return; 
     }
 
@@ -151,7 +153,8 @@ public class CropManager {
       }
     }
 
-    waitEnter(scanner);
+    InputUtils.waitEnter(scanner);
+    scanner.nextLine();
     return; 
   }
 
@@ -160,7 +163,7 @@ public class CropManager {
     
     if (plantedCrops.isEmpty()) {
       System.out.println("\nNo crops planted.");
-      waitEnter(scanner); 
+      InputUtils.waitEnter(scanner);
       return;
     }
 
@@ -182,7 +185,8 @@ public class CropManager {
       }
   }
 
-    waitEnter(scanner); 
+    InputUtils.waitEnter(scanner);
+    scanner.nextLine();
     return;
   }
 
@@ -199,7 +203,7 @@ public class CropManager {
 
     if (plantedCrops.isEmpty()) {
       System.out.println("No crops planted.");
-      waitEnter(scanner); 
+      InputUtils.waitEnter(scanner);
       return;
     }
 
@@ -212,7 +216,7 @@ public class CropManager {
             Crop crop = plantedCrops.get(i);
             if (crop.isHarvestable()) {
               crop.harvest();
-              cropInventory.addItem(crop.getName(), crop.getYieldAmount());
+              player.getCropInventory().addCrop(crop);
               plantedCrops.remove(i);
               i--; 
               anyHarvested = true;
@@ -231,36 +235,9 @@ public class CropManager {
         System.out.println("No crops are ready to harvest.");
     }
 
-    waitEnter(scanner); 
+    InputUtils.waitEnter(scanner);
+    scanner.nextLine();
     return;
-}
-
-  // helper
-  private void waitEnter(Scanner scanner) {
-    System.out.println("\nPress ENTER to continue...");
-    scanner.nextLine();
-    scanner.nextLine();
-    }
-
-  private int getValidIntInput(Scanner scanner, int max) {
-    int choice;
-    while (true) {
-      System.out.print(" ");
-      if(!scanner.hasNextInt()) {
-        System.out.println("[Error] Please enter a number.");
-        scanner.nextLine(); 
-        continue;
-      }
-
-      choice = scanner.nextInt();
-      scanner.nextLine();
-
-      if(choice < 1 || choice > max) {
-        System.out.println("[Error] Choose 1-" + max + ".");
-        continue;
-        }
-      return choice;
-      }
-    }
   }
+}
 
