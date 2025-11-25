@@ -3,6 +3,7 @@ package base;
 import java.util.Scanner;
 import managers.CropManager;
 import managers.FishManager;
+import utils.InputUtils;
 
 public class GameManager {
   private Player player;
@@ -56,6 +57,8 @@ public class GameManager {
     this.player = new Player(username, islandName);
 
     System.out.println("\nCharacter created successfully!");
+    InputUtils.waitEnter(scanner);
+    return;
   }
 
   public void displayMenu(Scanner scanner) {

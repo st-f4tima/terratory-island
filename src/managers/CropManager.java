@@ -8,6 +8,7 @@ import java.util.Scanner;
 import base.Player;
 import itemEntities.crop.Crop;
 import inventoryEntities.CropInventory;
+import utils.InputUtils;
 
 import itemEntities.crop.spring.*;
 import itemEntities.crop.summer.*;
@@ -75,7 +76,7 @@ public class CropManager {
 
     if(availableCrops == null) {
       System.out.println("No crops can be planted in " + currentSeason + ".");
-      waitEnter(scanner);
+      InputUtils.waitEnter(scanner);
       return;
     }
 
@@ -87,17 +88,17 @@ public class CropManager {
     }
 
     System.out.print("\nChoose a seed to plant:");
-    int seedChoice = getValidIntInput(scanner, availableCrops.size());
+    int seedChoice = InputUtils.getValidIntInput(scanner, availableCrops.size());
     Crop chosenSeed = availableCrops.get(seedChoice - 1);
 
     if (player.getLevel() < chosenSeed.getLevelRequired()) {
       System.out.println("\n[!] You must be level " + chosenSeed.getLevelRequired() + " to plant " + chosenSeed.getName() + ".");
-      scanner.nextLine();
+      InputUtils.waitEnter(scanner);
       return;
     }
 
     System.out.print("\nSpecify the number of seeds to plant:");
-    int quantity = getValidIntInput(scanner, 99); 
+    int quantity = InputUtils.getValidIntInput(scanner, 99); 
 
     for (int i = 0; i < quantity; i++) {
       this.plantedCrops.add(chosenSeed.createCopy());
@@ -115,7 +116,8 @@ public class CropManager {
         return;
       } 
       else if (plantAgain.equals("n")) {
-        waitEnter(scanner);
+        InputUtils.waitEnter(scanner);
+        scanner.nextLine();
         return; 
       } 
       else {
@@ -129,7 +131,7 @@ public class CropManager {
 
     if (plantedCrops.isEmpty()) {
       System.out.println("\nNo crops planted.");
-      waitEnter(scanner);
+      InputUtils.waitEnter(scanner);
       return; 
     }
 
@@ -151,7 +153,8 @@ public class CropManager {
       }
     }
 
-    waitEnter(scanner);
+    InputUtils.waitEnter(scanner);
+    scanner.nextLine();
     return; 
   }
 
@@ -160,7 +163,7 @@ public class CropManager {
     
     if (plantedCrops.isEmpty()) {
       System.out.println("\nNo crops planted.");
-      waitEnter(scanner); 
+      InputUtils.waitEnter(scanner);
       return;
     }
 
@@ -182,7 +185,8 @@ public class CropManager {
       }
   }
 
-    waitEnter(scanner); 
+    InputUtils.waitEnter(scanner);
+    scanner.nextLine();
     return;
   }
 
@@ -199,7 +203,7 @@ public class CropManager {
 
     if (plantedCrops.isEmpty()) {
       System.out.println("No crops planted.");
-      waitEnter(scanner); 
+      InputUtils.waitEnter(scanner);
       return;
     }
 
@@ -231,36 +235,9 @@ public class CropManager {
         System.out.println("No crops are ready to harvest.");
     }
 
-    waitEnter(scanner); 
+    InputUtils.waitEnter(scanner);
+    scanner.nextLine();
     return;
-}
-
-  // helper
-  private void waitEnter(Scanner scanner) {
-    System.out.println("\nPress ENTER to continue...");
-    scanner.nextLine();
-    scanner.nextLine();
-    }
-
-  private int getValidIntInput(Scanner scanner, int max) {
-    int choice;
-    while (true) {
-      System.out.print(" ");
-      if(!scanner.hasNextInt()) {
-        System.out.println("[Error] Please enter a number.");
-        scanner.nextLine(); 
-        continue;
-      }
-
-      choice = scanner.nextInt();
-      scanner.nextLine();
-
-      if(choice < 1 || choice > max) {
-        System.out.println("[Error] Choose 1-" + max + ".");
-        continue;
-        }
-      return choice;
-      }
-    }
   }
+}
 
