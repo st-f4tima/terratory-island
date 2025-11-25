@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Scanner;
 import base.Player;
 import itemEntities.crop.Crop;
-import inventoryEntities.CropInventory;
 import utils.InputUtils;
 
 import itemEntities.crop.spring.*;
@@ -15,12 +14,12 @@ import itemEntities.crop.summer.*;
 import itemEntities.crop.fall.*;
 
 public class CropManager {
-  private CropInventory cropInventory;
+  private Player player;
   private Map<String, List<Crop>> cropCollection;
   private List<Crop> plantedCrops;
 
-  public CropManager() {
-    this.cropInventory = new CropInventory();
+  public CropManager(Player player) {
+    this.player = player;
     this.cropCollection = new HashMap<>();
     this.plantedCrops = new ArrayList<>();
     initializeCrops();
@@ -34,25 +33,26 @@ public class CropManager {
 
   public void displayCropSummary() {
     if (plantedCrops.isEmpty()) {
-      System.out.println("\nNo crops planted yet.");
+      System.out.println("\nCROP SUMMARY:");
+      System.out.print("No crops planted yet.\n");
       return;
     }
 
-    String line = "┌─────┬──────────┬─────────┬──────────┬────────────┬─────────────┬─────────────┐";
-    String middleLine = "├─────┼──────────┼─────────┼──────────┼────────────┼─────────────┼─────────────┤";
+    String topLine = "┌─────┬──────────┬─────────┬──────────┬────────────┬─────────────┬─────────────┐";
+    String seperator = "├─────┼──────────┼─────────┼──────────┼────────────┼─────────────┼─────────────┤";
     String bottomLine = "└─────┴──────────┴─────────┴──────────┴────────────┴─────────────┴─────────────┘";
 
-    System.out.println("\nCrop Summary:");
-    System.out.println(line);
+    System.out.println("\nCROP SUMMARY:");
+    System.out.println(topLine);
     System.out.printf("│%-5s│%-10s│%-9s│%-10s│%-12s│%-13s│%-13s│\n",
             "Tile", "Crop", "Days", "Watered", "Fertilized", "Harvestable", "Est. Yield");
-    System.out.println(middleLine);
+    System.out.println(seperator);
 
     int tileNumber = 1;
     for (Crop crop : plantedCrops) {
-      String watered = crop.isWatered() ? "Yes" : "No";
-      String fertilized = crop.isFertilized() ? "Yes" : "No";
-      String harvestable = crop.isHarvestable() ? "Yes" : "No";
+      String watered = crop.isWatered() ? "Hydrated" : "Dry";
+      String fertilized = crop.isFertilized() ? "Enriched" : "Basic";
+      String harvestable = crop.isHarvestable() ? "Mature" : "Growing";
       String days = crop.getDaysGrown() + "/" + crop.getGrowthDays();
 
       System.out.printf("│%-5s│%-10s│%-9s│%-10s│%-12s│%-13s│%-13d│\n",
@@ -84,7 +84,7 @@ public class CropManager {
     System.out.println("\nAvailable Seeds:");
     for(int i = 0; i < availableCrops.size(); i++) {
       Crop crop = availableCrops.get(i);
-      System.out.printf("%d. %-15s (Lvl Req: %d)\n", (i + 1), crop.getName(), crop.getLevelRequired());
+      System.out.printf("[%d] %-15s (Lvl Req: %d)\n", (i + 1), crop.getName(), crop.getLevelRequired());
     }
 
     System.out.print("\nChoose a seed to plant:");
@@ -216,7 +216,7 @@ public class CropManager {
             Crop crop = plantedCrops.get(i);
             if (crop.isHarvestable()) {
               crop.harvest();
-              cropInventory.addItem(crop.getName(), crop.getYieldAmount());
+              player.getCropInventory().addCrop(crop);
               plantedCrops.remove(i);
               i--; 
               anyHarvested = true;
