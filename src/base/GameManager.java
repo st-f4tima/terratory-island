@@ -109,17 +109,6 @@ public class GameManager {
       System.out.print("\n-> ");
       int menuChoice = InputUtils.getValidIntInput(scanner, 1, 6);
 
-      // String input = scanner.nextLine().trim();
-
-      // // Validate input. bcs error when letters are pressed!
-      // if (!input.matches("\\d+")) {
-      //   System.out.println("[Error] Please enter a valid number (1-6).");
-      //   InputUtils.waitEnter(scanner);
-      //   continue;
-      // }
-
-      // int menuChoice = Integer.parseInt(input);
-
       if (menuChoice == 1) {
         checkFarmFields(scanner); 
         continue;
@@ -228,7 +217,7 @@ public class GameManager {
 
       if(inventoryChoice == 1) {
         InventoryManager.handleCropInventory(scanner, player);
-        
+        continue;
       } else if (inventoryChoice == 2) {
 
       } else if (inventoryChoice == 3) {
