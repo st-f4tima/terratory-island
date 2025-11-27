@@ -223,6 +223,7 @@ public class CropManager {
   
   public void harvestCrops(Scanner scanner) {
     boolean anyHarvested = false;
+    int harvestedCount = 0;
     System.out.println("\n─────────────── HARVEST CROPS ───────────────\n");
 
     if (plantedCrops.isEmpty()) {
@@ -244,9 +245,9 @@ public class CropManager {
               plantedCrops.remove(i);
               i--; 
               anyHarvested = true;
+              harvestedCount++;
             }
           }
-          player.gainXP(plantedCrops.size() * 10); // player gains xp!
           break; 
         } else if (choice.equals("n")) {
           System.out.println("\n\nNo crops were harvested.");
@@ -256,10 +257,12 @@ public class CropManager {
         }
     }
 
-    if (!anyHarvested) {
-        System.out.println("No crops are ready to harvest.");
+    if(harvestedCount > 0) {
+      player.gainXP(plantedCrops.size() * 10); // player gains xp!
+    } else {
+      System.out.println("No crops are ready to harvest.");
     }
-
+    
     InputUtils.waitEnter(scanner);
     scanner.nextLine();
     return;
