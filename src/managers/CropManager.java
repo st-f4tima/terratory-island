@@ -87,8 +87,10 @@ public class CropManager {
       System.out.printf("[%d] %-15s (Lvl Req: %d)\n", (i + 1), crop.getName(), crop.getLevelRequired());
     }
 
-    System.out.print("\nChoose a seed to plant:");
-    int seedChoice = InputUtils.getValidIntInput(scanner, availableCrops.size());
+    System.out.println("\nChoose a seed to plant:");
+    System.out.print("-> ");
+    int seedChoice = InputUtils.getValidIntInput(scanner, 1, availableCrops.size());
+
     Crop chosenSeed = availableCrops.get(seedChoice - 1);
 
     if (player.getLevel() < chosenSeed.getLevelRequired()) {
@@ -97,16 +99,18 @@ public class CropManager {
       return;
     }
 
-    System.out.print("\nSpecify the number of seeds to plant:");
-    int quantity = InputUtils.getValidIntInput(scanner, 99); 
+    System.out.println("\nSpecify the number of seeds to plant:");
+    System.out.print("-> ");
+    int quantity = InputUtils.getValidIntInput(scanner, 1, 100); 
 
     for (int i = 0; i < quantity; i++) {
       this.plantedCrops.add(chosenSeed.createCopy());
     }
 
     System.out.println("\n[Success] You planted " + quantity + " " + chosenSeed.getName() + "(s)!");
+    player.gainXP(quantity * 2); // player gains xp!
 
-      while (true) {
+    while (true) {
       System.out.print("\nPlant again? (y/n): ");
       String plantAgain = scanner.next().trim().toLowerCase();
 
@@ -144,6 +148,7 @@ public class CropManager {
           crop.water();
         }
         System.out.println("\n[Success] All crops have been watered!");
+        player.gainXP(plantedCrops.size() * 2); // player gains xp!
         break; 
       } else if (choice.equals("n")) {
         System.out.println("\nNo crops were watered.");
@@ -176,6 +181,7 @@ public class CropManager {
           crop.applyFertilizer();
         }
         System.out.println("\n[Success] All crops have been fertilized!");
+        player.gainXP(plantedCrops.size() * 2); // player gains xp!
         break; 
       } else if (choice.equals("n")) {
         System.out.println("\nNo crops were fertilized.");
@@ -191,12 +197,30 @@ public class CropManager {
   }
 
   public void growCrops() {
-    
+    if(plantedCrops.isEmpty()) return;
+
+    int grewCount = 0;
+    int notGrewCount = 0;
+
     for(Crop crop : plantedCrops) {
-      crop.grow();
+      if(crop.isWatered() && crop.isFertilized()) {
+        crop.grow();
+        grewCount++;
+      } else {
+        notGrewCount--;
+      }
+      crop.resetDailyCare();
+    }
+
+    if (grewCount == plantedCrops.size()) {
+      System.out.println("\nAll your crops grew today!");
+    } else if (grewCount > 0) {
+      System.out.println("\n" + grewCount + " crop(s) grew today, " + notGrewCount + " did not due to missing care.");
+    } else {
+      System.out.println("\nNone of your crops grew today. Make sure to water and fertilize them!");
     }
   }
-
+  
   public void harvestCrops(Scanner scanner) {
     boolean anyHarvested = false;
     System.out.println("\n─────────────── HARVEST CROPS ───────────────\n");
@@ -222,6 +246,7 @@ public class CropManager {
               anyHarvested = true;
             }
           }
+          player.gainXP(plantedCrops.size() * 10); // player gains xp!
           break; 
         } else if (choice.equals("n")) {
           System.out.println("\n\nNo crops were harvested.");
