@@ -61,6 +61,7 @@ public class Player {
   // methods
   public void gainXP(int amount) {
     this.xp += amount;
+    System.out.println("\nYou gained " + amount + " XP (Total XP: " + this.xp + ").");
     checkLevelUp();
   }
 
@@ -73,7 +74,7 @@ public class Player {
   }
 
   public int getRequiredXP() {
-    return 10 * this.level;
+    return (int) (10 * Math.pow(this.level, 2)); 
   }
 
   private void checkLevelUp() {

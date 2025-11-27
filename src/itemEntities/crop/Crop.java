@@ -63,11 +63,18 @@ public abstract class Crop extends Item {
   }
 
   public void grow() {
-    if (isWatered && isFertilized &&  !isHarvested) {
-        daysGrown++;
-        isWatered = false; 
-        isFertilized = false;
-    }
+    // if (isWatered && isFertilized) {
+    //     daysGrown++;
+    //     isWatered = false; 
+    //     isFertilized = false;
+    // }
+    daysGrown++;
+  }
+
+  // for next day hehe
+  public void resetDailyCare() {
+    this.isWatered = false;
+    this.isFertilized = false;
   }
 
   public void harvest() {
@@ -83,7 +90,7 @@ public abstract class Crop extends Item {
   public int sell() {
     if (isHarvested) {
       int sellPrice = (int)(getCost() * 1.5);
-      System.out.println("You sold a " + getName() + " for " + sellPrice + " coins!");
+      System.out.println("You sold a " + getName() + " for $" + sellPrice + " coins!");
       return sellPrice;
     } else {
       System.out.println("You can't sell an unharvested crop!");

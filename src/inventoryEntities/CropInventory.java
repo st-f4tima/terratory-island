@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Iterator;
 import base.Inventory;
+import base.Player;
 import itemEntities.crop.Crop;
 
 public class CropInventory extends Inventory {
@@ -25,12 +27,50 @@ public class CropInventory extends Inventory {
     System.out.println(cropName + " (" + crop.getYieldAmount() + ") added to inventory.");
   }
 
+  public int sellAllCrops(Player player) {
+    int totalEarned = 0;
+    int totalSold = 0;
+
+    if (storedCrops.isEmpty()) {
+        System.out.println("You have no harvested crops.");
+        return 0;
+    }
+    
+    Iterator<Map.Entry<String, List<Crop>>> mapIterator = storedCrops.entrySet().iterator();
+
+    while (mapIterator.hasNext()) {
+      Map.Entry<String, List<Crop>> entry = mapIterator.next();
+      List<Crop> crops = entry.getValue();
+
+      Iterator<Crop> listIterator = crops.iterator();
+
+      while (listIterator.hasNext()) {
+        Crop crop = listIterator.next();
+        int coins = crop.sell();
+
+        if (coins > 0) {
+          totalEarned += coins;
+          totalSold++;
+          player.gainCoins(coins);
+          listIterator.remove(); 
+        }
+      }
+
+      if (crops.isEmpty()) {
+        mapIterator.remove();
+      }
+    }
+    player.gainXP(totalSold * 8);
+    return totalEarned;
+  }
+
+
   @Override
   public void viewData() {
     System.out.println("\n─────────────── INVENTORY : CROPS ───────────────\n");
-    System.out.println("\"Harvested crops: proof you didn't just stare at dirt all day.\"\n");
+    System.out.println("HARVESTED CROPS:");
     if (this.storedCrops.isEmpty()) {
-      System.out.println("You currently have no harvested crops.");
+      System.out.print("You currently have no harvested crops.\n");
       return;
     }
 

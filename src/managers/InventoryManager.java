@@ -1,38 +1,41 @@
 package managers;
 
 import java.util.Scanner;
+import utils.InputUtils;
+import base.Player;
 
 public class InventoryManager {
   public static void displayInventoryMenu(Scanner scanner) {
     System.out.println("\"Let's dive into your inventory! Warning: surprises may include absolutely nothing.\"");
-    String topLine    = "┌──────────────────────────────┬──────────────────────────────┐";
-    String middleLine   = "├──────────────────────────────┼──────────────────────────────┤";
-    String bottomLine = "└──────────────────────────────┴──────────────────────────────┘";
+    System.out.println("\n[1] View Harvested Crops");
+    System.out.println("[2] View Livestock");
+    System.out.println("[3] View Animal Produce");
+    System.out.println("[4] View Fish");
+    System.out.println("[5] I want to do something else\n");
+  }
 
-    System.out.println("\n" + topLine);
-    System.out.printf("│ %-28s │ %-28s │\n", "STORAGE CATEGORIES", "AVAILABLE ACTIONS");
-    System.out.println(middleLine);
+  public static void displaySellChoice() {
+    System.out.println("\n\"Time to cash in your hard work!\"");
+    System.out.println("\n[1] Sell All");
+    System.out.println("[2] I want do do something else\n");
+  }
 
-    System.out.printf("│ %-28s │ %-28s │\n", 
-      "[1] View Harvested Crops", 
-      "[5] Sell Items"
-    );
+  public static void handleCropInventory(Scanner scanner, Player player) {
+    while (true) {
+      player.getCropInventory().viewData();
+      InventoryManager.displaySellChoice();
+      System.out.print("-> ");
+      
+      int sellChoice = InputUtils.getValidIntInput(scanner, 1, 2);
 
-    System.out.printf("│ %-28s │ %-28s │\n", 
-      "[2] View Livestock", 
-      "[6] Do something else"
-    );
-
-    System.out.printf("│ %-28s │ %-28s │\n", 
-      "[3] View Fish", 
-      "" 
-    );
-
-    System.out.printf("│ %-28s │ %-28s │\n", 
-      "[4] View Animal Produce", 
-      ""
-    );
-
-    System.out.println(bottomLine);
+      if(sellChoice == 1) {
+        player.getCropInventory().sellAllCrops(player);
+        InputUtils.waitEnter(scanner);
+        break;
+      } else {
+        InputUtils.waitEnter(scanner);
+        break;
+      }
+    }
   }
 }

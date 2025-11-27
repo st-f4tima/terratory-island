@@ -107,7 +107,18 @@ public class GameManager {
       System.out.println(bottomLine);
 
       System.out.print("\n-> ");
-      int menuChoice = scanner.nextInt();
+      int menuChoice = InputUtils.getValidIntInput(scanner, 1, 6);
+
+      // String input = scanner.nextLine().trim();
+
+      // // Validate input. bcs error when letters are pressed!
+      // if (!input.matches("\\d+")) {
+      //   System.out.println("[Error] Please enter a valid number (1-6).");
+      //   InputUtils.waitEnter(scanner);
+      //   continue;
+      // }
+
+      // int menuChoice = Integer.parseInt(input);
 
       if (menuChoice == 1) {
         checkFarmFields(scanner); 
@@ -121,14 +132,12 @@ public class GameManager {
         openInventory(scanner);
         continue;
       } else if (menuChoice == 5) {
-        // proceedToNextDay();
-        break;
-      } else if (menuChoice == 6) {
+        proceedToNextDay(scanner);
+        continue;
+      } else {
         System.out.println("Thank you!"); // not final msg
         return;
-      } else {
-        System.out.println("[Error] Please select a number from 1 to 7.");
-      }
+      } 
     }
   }
 
@@ -144,8 +153,7 @@ public class GameManager {
       System.out.println("[5] I want to do something else");
       System.out.print("\n-> ");
 
-      int farmMenuChoice = scanner.nextInt();
-      scanner.nextLine(); 
+      int farmMenuChoice = InputUtils.getValidIntInput(scanner, 1, 5);
       
       if (farmMenuChoice == 1) {
         cropManager.plantSeeds(currentSeason, player, scanner);
@@ -159,11 +167,9 @@ public class GameManager {
       } else if (farmMenuChoice == 4) {
         cropManager.harvestCrops(scanner);
         continue;
-      } else if (farmMenuChoice == 5) {
-        return;
       } else {
-        System.out.println("[Error] Please select a number from 1 to 5.");
-      }
+        return;
+      } 
     }
   }
 
@@ -217,38 +223,35 @@ public class GameManager {
       System.out.println("\n───────────────── INVENTORY ─────────────────\n");
       InventoryManager.displayInventoryMenu(scanner);
 
-      System.out.print("\nDecisions, decisions… what now? ");
-      int inventoryChoice = scanner.nextInt();
+      System.out.print("-> ");
+      int inventoryChoice = InputUtils.getValidIntInput(scanner, 1, 5);
 
       if(inventoryChoice == 1) {
-        player.getCropInventory().viewData();
-        InputUtils.waitEnter(scanner);
-        scanner.nextLine();
-        continue;
+        InventoryManager.handleCropInventory(scanner, player);
+        
       } else if (inventoryChoice == 2) {
 
       } else if (inventoryChoice == 3) {
 
       } else if (inventoryChoice == 4) {
 
-      } else if (inventoryChoice == 5) {
-
-      } else if (inventoryChoice == 6) {
-
       } else {
-        System.out.println("[Error] Please select a number from 1 to 5.");
+        return;
       }
     }
   }
 
-  // TODO: Implment proceedToNextDay() - put nextDay() logic on it
-  // TODO: Implement LeaveGame()
-
-  public void nextDay() {
+  public void proceedToNextDay(Scanner scanner) {
     player.nextDay();
     updateSeason();
-    System.out.println("Day " + player.getDayCount() + " - Season: " + currentSeason);
+
+    System.out.println("\nWelcome to Day " + player.getDayCount() + " of " + currentSeason + "!");
+    cropManager.growCrops();
+    
+    InputUtils.waitEnter(scanner);
   }
+
+  // TODO: Implement LeaveGame()
 
   private void updateSeason() {
     int day = player.getDayCount() % 112;
