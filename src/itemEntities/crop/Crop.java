@@ -15,7 +15,7 @@ public abstract class Crop extends Item {
     super(name, cost, levelRequired);
     this.season = season;
     this.growthDays = growthDays;
-    this.daysGrown = 0;
+    this.daysGrown = 1;
     this.yieldAmount = 16;
     this.isWatered = isWatered;
     this.isFertilized = isFertilized;
@@ -63,11 +63,6 @@ public abstract class Crop extends Item {
   }
 
   public void grow() {
-    // if (isWatered && isFertilized) {
-    //     daysGrown++;
-    //     isWatered = false; 
-    //     isFertilized = false;
-    // }
     daysGrown++;
   }
 
@@ -82,8 +77,7 @@ public abstract class Crop extends Item {
   }
 
   public boolean isHarvestable() {
-    // return daysGrown >= growthDays && !isHarvested;
-    return true;
+    return daysGrown >= growthDays && !isHarvested;
   }
   
   @Override
