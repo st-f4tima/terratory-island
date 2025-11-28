@@ -8,6 +8,7 @@ import itemEntities.fish.spring.*;
 import itemEntities.fish.summer.*;
 import itemEntities.fish.winter.*;
 
+
 public class FishManager {
     Random random;
     List<Fish> springFish;
@@ -54,7 +55,7 @@ public class FishManager {
     }
 
     public int getRandomWeight(Fish randomFish) {
-        return random.nextInt((randomFish.getMaxWeight()) + 1); 
+        return random.nextInt((randomFish.getMaxWeight()) + 2); 
     }
 
     public void catchFish(String currentSeason) {
@@ -63,6 +64,7 @@ public class FishManager {
         int caughtFishWeight = getRandomWeight(caughtFish);
 
         System.out.println("\nYou caught a " + caughtFish.getName() + " weighing " + caughtFishWeight + " kg!");
+
     }
 
 }

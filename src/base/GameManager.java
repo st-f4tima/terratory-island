@@ -232,7 +232,8 @@ public class GameManager {
         InventoryManager.handleLivestockInventory(scanner, player);
         continue;
       } else if (inventoryChoice == 4) {
-
+        InventoryManager.handleFishInventory(scanner, player);
+        continue;
       } else {
         return;
       }
