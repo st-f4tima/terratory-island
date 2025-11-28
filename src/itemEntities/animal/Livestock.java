@@ -9,8 +9,8 @@ public abstract class Livestock extends Item{
     protected int breedCooldown;
     protected boolean isFed;
 
-    public Livestock(String name, int cost, int unlockLevel, String petName, int age, int breedCooldown, boolean isFed){
-        super(name, cost, unlockLevel);
+    public Livestock(String name, int cost, int levelRequired, String petName, int age, int breedCooldown, boolean isFed){
+        super(name, cost, levelRequired);
         this.petName = petName;
         this.age = age;
         this.breedCooldown = breedCooldown;
@@ -35,7 +35,7 @@ public abstract class Livestock extends Item{
     }
 
     // progression (in-game)
-    public void passDay(){
+    public void growLivestock(){
         this.age++;
         if (this.breedCooldown > 0) {
             this.breedCooldown--;
@@ -45,8 +45,8 @@ public abstract class Livestock extends Item{
     }
 
     //  animal-specific
-    protected abstract String getProduce();
     protected abstract Livestock birth(String babyName);
+    public abstract String getProduce();
     public abstract int collectProduce();
 
     //  getters
