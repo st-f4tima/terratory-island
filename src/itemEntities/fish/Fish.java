@@ -20,6 +20,10 @@ public abstract class Fish extends Item {
         return maxWeight;
     }
 
+    public int getYieldAmount() {
+        return 1;
+    }
+
     @Override
     public int sell() {
         int sellPrice = getCost() * maxWeight;

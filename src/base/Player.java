@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import inventoryEntities.CropInventory;
+import inventoryEntities.FishInventory;
 import inventoryEntities.LivestockInventory;
 import inventoryEntities.ProduceInventory;
 
@@ -15,7 +16,7 @@ public class Player {
   private int coins;
   private int dayCount;
   private CropInventory cropInventory;
-  private Map<String, Integer> fishInventory;
+  private FishInventory fishInventory;
   private LivestockInventory livestockInventory;
   private ProduceInventory produceInventory;
 
@@ -28,7 +29,7 @@ public class Player {
     this.dayCount = 1;
     this.cropInventory = new CropInventory();
     this.livestockInventory = new LivestockInventory();
-    this.fishInventory = new HashMap<>();
+    this.fishInventory = new FishInventory();
   }
 
   // getters
@@ -60,9 +61,9 @@ public class Player {
     return this.cropInventory;
   }
 
-  // public FishInventory getFishInventory() {
-  //   return this.fishInventory;
-  //   }
+  public FishInventory getFishInventory() {
+    return this.fishInventory;
+  }
 
   public LivestockInventory getLivestockInventory() {
     return this.livestockInventory;
