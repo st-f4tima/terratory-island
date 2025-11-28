@@ -21,7 +21,7 @@ public class Duck extends Livestock{
     }
 
     @Override
-    protected String getProduce(){
+    public String getProduce(){
         return "Egg";
     }
 

@@ -4,6 +4,7 @@ import java.util.Scanner;
 import managers.CropManager;
 import managers.FishManager;
 import managers.InventoryManager;
+import managers.LivestockManager;
 import utils.InputUtils;
 
 public class GameManager {
@@ -11,6 +12,7 @@ public class GameManager {
   private String currentSeason;
   private CropManager cropManager;
   private FishManager fishManager;
+  private LivestockManager livestockManager;
   
   public GameManager() {
     this.currentSeason = "Spring";
@@ -58,6 +60,7 @@ public class GameManager {
 
     // put managers here
     this.cropManager = new CropManager(player);
+    this.livestockManager = new LivestockManager(player.getLivestockInventory(), player.getProduceInventory());
 
     System.out.println("\nCharacter created successfully!");
     InputUtils.waitEnter(scanner);
@@ -113,7 +116,7 @@ public class GameManager {
         checkFarmFields(scanner); 
         continue;
       } else if (menuChoice == 2) {
-        // visitAnimalBarn(); - Gema
+        visitAnimalBarn(scanner);
       } else if (menuChoice == 3) {
         visitFishingDock(scanner);
         continue;
@@ -164,25 +167,30 @@ public class GameManager {
 
   // visit the animals
   public void visitAnimalBarn(Scanner scanner) {
-    System.out.println("\n──────────────── ANIMAL BARN ───────────────\n");
-    System.out.println("\"Time to check on your friends!~ What needs doing in the barn today?\"\n");
-    System.out.println("1. Feed Animals");
-    System.out.println("2. Breed Animals");
-    System.out.println("3. Collect Produce");
-    System.out.println("4. They're alright, I'll go do something else");
+    while (true) {
+      System.out.println("\n──────────────── ANIMAL BARN ───────────────\n");
+      System.out.println("\"Time to check on your friends!~ What needs doing in the barn today?\"\n");
+      System.out.println("1. Feed Animals");
+      System.out.println("2. Breed Animals");
+      System.out.println("3. Collect Produce");
+      System.out.println("4. They're alright, I'll go do something else");
+      System.out.print("\n-> ");
 
-    while (true) { 
-      System.out.print("\nSelect from 1-4: ");
-      int barnMenuChoice = scanner.nextInt();
+      int barnMenuChoice = InputUtils.getValidIntInput(scanner, 1, 4);
 
-      /*  WIP
-      LivestockManager livestockManager = scanner.nextInt();
       if (barnMenuChoice == 1) {
-        
+        livestockManager.feedAllAnimals(scanner, player);
+        continue;
+      } else if (barnMenuChoice == 2) {
+        livestockManager.breedAnimal(scanner, player);
+        continue;
+      } else if (barnMenuChoice == 3) {
+        livestockManager.collectProduceFromAnimals(scanner, player);
+        continue;
+      } else {
+        return;
       }
-      */
     }
-
   }
 
   public void visitFishingDock(Scanner scanner) {
@@ -221,7 +229,8 @@ public class GameManager {
       } else if (inventoryChoice == 2) {
 
       } else if (inventoryChoice == 3) {
-
+        InventoryManager.handleLivestockInventory(scanner, player);
+        continue;
       } else if (inventoryChoice == 4) {
 
       } else {
@@ -236,6 +245,7 @@ public class GameManager {
 
     System.out.println("\nWelcome to Day " + player.getDayCount() + " of " + currentSeason + "!");
     cropManager.growCrops();
+    livestockManager.growAllLivestock();
     
     InputUtils.waitEnter(scanner);
   }

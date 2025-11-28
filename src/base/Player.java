@@ -5,6 +5,7 @@ import java.util.Map;
 
 import inventoryEntities.CropInventory;
 import inventoryEntities.LivestockInventory;
+import inventoryEntities.ProduceInventory;
 
 public class Player {
   private String username;
@@ -14,8 +15,9 @@ public class Player {
   private int coins;
   private int dayCount;
   private CropInventory cropInventory;
-  private LivestockInventory livestockInventory;
   private Map<String, Integer> fishInventory;
+  private LivestockInventory livestockInventory;
+  private ProduceInventory produceInventory;
 
   public Player(String username, String islandName) {
     this.username = username;
@@ -56,6 +58,18 @@ public class Player {
 
   public CropInventory getCropInventory() {
     return this.cropInventory;
+  }
+
+  // public FishInventory getFishInventory() {
+  //   return this.fishInventory;
+  //   }
+
+  public LivestockInventory getLivestockInventory() {
+    return this.livestockInventory;
+  }
+
+  public ProduceInventory getProduceInventory() {
+    return this.produceInventory;
   }
   
   // methods

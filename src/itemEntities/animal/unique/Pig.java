@@ -21,7 +21,7 @@ public class Pig extends Livestock{
     }
 
     @Override
-    protected String getProduce(){
+    public String getProduce(){
         return "Truffle";
     }
 

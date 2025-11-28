@@ -17,7 +17,7 @@ public class Sheep extends Livestock{
     }
 
     @Override
-    protected String getProduce(){
+    public String getProduce(){
         return "Wool";
     }
 
