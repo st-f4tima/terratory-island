@@ -1,8 +1,5 @@
 package base;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import inventoryEntities.CropInventory;
 import inventoryEntities.FishInventory;
 import inventoryEntities.LivestockInventory;

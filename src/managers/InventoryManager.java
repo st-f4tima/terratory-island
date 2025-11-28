@@ -16,7 +16,7 @@ public class InventoryManager {
 
   public static void displaySellChoice() {
     System.out.println("\n\"Time to cash in your hard work!\"");
-    System.out.println("\n[1] Sell");
+    System.out.println("\n[1] Sell a crop");
     System.out.println("[2] I want do do something else\n");
   }
 
@@ -29,7 +29,7 @@ public class InventoryManager {
       int sellChoice = InputUtils.getValidIntInput(scanner, 1, 2);
 
       if(sellChoice == 1) {
-        player.getCropInventory().sellAllCrops(player);
+        player.getCropInventory().SellOneCrop(player, scanner);
         InputUtils.waitEnter(scanner);
         break;
       } else {

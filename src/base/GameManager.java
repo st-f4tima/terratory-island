@@ -83,30 +83,15 @@ public class GameManager {
       );
 
       System.out.println("\n\"What would you like to do today?\"");
-
       String topLine    = "┌─────────────────────────┬─────────────────────────┬─────────────────────────┐";
       String separator    = "├─────────────────────────┼─────────────────────────┼─────────────────────────┤";
       String bottomLine = "└─────────────────────────┴─────────────────────────┴─────────────────────────┘";
-
       System.out.println(topLine);
       System.out.printf("│%-25s│%-25s│%-25s│\n", "       ACTIVITIES", "       MANAGEMENT", "         SYSTEM");
       System.out.println(separator);
-
-      System.out.printf("│ %-23s │ %-23s │ %-23s │\n", 
-          "[1] Check Farm Fields", 
-          "[4] Open Inventory", 
-          "[5] Proceed to Next Day");
-
-      System.out.printf("│ %-23s │ %-23s │ %-23s │\n", 
-          "[2] Visit Animal Barn", 
-          "", 
-          "[6] Leave Game");
-
-      System.out.printf("│ %-23s │ %-23s │ %-23s │\n", 
-          "[3] Visit Fishing Dock", 
-          "", 
-          "");
-
+      System.out.printf("│ %-23s │ %-23s │ %-23s │\n", "[1] Check Farm Fields", "[4] Open Inventory", "[5] Proceed to Next Day");
+      System.out.printf("│ %-23s │ %-23s │ %-23s │\n", "[2] Visit Animal Barn", "", "[6] Leave Game");
+      System.out.printf("│ %-23s │ %-23s │ %-23s │\n", "[3] Visit Fishing Dock", "", "");
       System.out.println(bottomLine);
 
       System.out.print("\n-> ");

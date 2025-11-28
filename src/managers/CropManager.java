@@ -222,7 +222,6 @@ public class CropManager {
   }
   
   public void harvestCrops(Scanner scanner) {
-    boolean anyHarvested = false;
     int harvestedCount = 0;
     System.out.println("\n─────────────── HARVEST CROPS ───────────────\n");
 
@@ -244,7 +243,6 @@ public class CropManager {
               player.getCropInventory().addCrop(crop);
               plantedCrops.remove(i);
               i--; 
-              anyHarvested = true;
               harvestedCount++;
             }
           }
