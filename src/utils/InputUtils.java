@@ -10,27 +10,35 @@ public class InputUtils {
 
   public static int getValidIntInput(Scanner scanner, int min, int max) {
     while (true) {
-      String input = scanner.nextLine().trim();
+      try {
+          String input = scanner.nextLine().trim();
 
-      if (!input.matches("\\d+")) {
-          System.out.println("[Error] Please enter a number (" + min + "-" + max + ").");
-          System.out.println("Press ENTER to try again...");
-          scanner.nextLine();
-          System.out.print("-> ");
-          continue;
+          // validate: must be a number (used regular expresion here)
+          if (!input.matches("\\d+")) {
+            showError(scanner, min, max);
+            continue;
+          }
+
+          int value = Integer.parseInt(input);
+
+          // validate: if must be within the given range
+          if (value < min || value > max) {
+            showError(scanner, min, max);
+            continue;
+          }
+
+          return value; 
+      } catch (Exception e) {
+        showError(scanner, min, max);
       }
-
-      int value = Integer.parseInt(input);
-      
-      if (value < min || value > max) {
-          System.out.println("[Error] Please choose between " + min + " and " + max + ".");
-          System.out.println("Press ENTER to try again...");
-          scanner.nextLine();
-          System.out.print("-> ");
-          continue;
-      }
-
-      return value; 
     }
+  }
+
+// reusable error message method 
+  private static void showError(Scanner scanner, int min, int max) {
+    System.out.println("[Error] Please enter a number (" + min + "-" + max + ").");
+    System.out.println("Press ENTER to try again...");
+    scanner.nextLine();
+    System.out.print("-> ");
   }
 }

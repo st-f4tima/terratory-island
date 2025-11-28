@@ -77,17 +77,18 @@ public abstract class Crop extends Item {
   }
 
   public boolean isHarvestable() {
-    return daysGrown >= growthDays && !isHarvested;
+    // return daysGrown >= growthDays && !isHarvested;
+    return true;
   }
   
   @Override
   public int sell() {
     if (isHarvested) {
       int sellPrice = (int)(getCost() * 1.5);
-      System.out.println("You sold a " + getName() + " for $" + sellPrice + " coins!");
+      System.out.println("\nYou sold a " + getName() + " for $" + sellPrice + " coins!");
       return sellPrice;
     } else {
-      System.out.println("You can't sell an unharvested crop!");
+      System.out.println("\nYou can't sell an unharvested crop!");
       return 0;
     }
   }

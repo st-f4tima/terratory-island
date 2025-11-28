@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Iterator;
+import java.util.Scanner;
 import base.Inventory;
 import base.Player;
 import itemEntities.crop.Crop;
+import utils.InputUtils;
 
 public class CropInventory extends Inventory {
   private Map<String, List<Crop>> storedCrops;
@@ -27,41 +29,74 @@ public class CropInventory extends Inventory {
     System.out.println(cropName + " (" + crop.getYieldAmount() + ") added to inventory.");
   }
 
-  public int sellAllCrops(Player player) {
-    int totalEarned = 0;
-    int totalSold = 0;
+  // public void sellAllCrops(Player player) {
+  //   int totalEarned = 0;
+  //   int totalSold = 0;
 
-    if (storedCrops.isEmpty()) {
-        System.out.println("You have no harvested crops.");
-        return 0;
-    }
+  //   if (storedCrops.isEmpty()) {
+  //       System.out.println("You have no harvested crops.");
+  //       return;
+  //   }
     
-    Iterator<Map.Entry<String, List<Crop>>> mapIterator = storedCrops.entrySet().iterator();
+  //   Iterator<Map.Entry<String, List<Crop>>> mapIterator = storedCrops.entrySet().iterator();
 
-    while (mapIterator.hasNext()) {
-      Map.Entry<String, List<Crop>> entry = mapIterator.next();
-      List<Crop> crops = entry.getValue();
+  //   while (mapIterator.hasNext()) {
+  //     Map.Entry<String, List<Crop>> entry = mapIterator.next();
+  //     List<Crop> crops = entry.getValue();
 
-      Iterator<Crop> listIterator = crops.iterator();
+  //     Iterator<Crop> listIterator = crops.iterator();
 
-      while (listIterator.hasNext()) {
-        Crop crop = listIterator.next();
-        int coins = crop.sell();
+  //     while (listIterator.hasNext()) {
+  //       Crop crop = listIterator.next();
+  //       int coins = crop.sell();
 
-        if (coins > 0) {
-          totalEarned += coins;
-          totalSold++;
-          player.gainCoins(coins);
-          listIterator.remove(); 
+  //       if (coins > 0) {
+  //         totalEarned += coins;
+  //         totalSold++;
+  //         player.gainCoins(coins);
+  //         listIterator.remove(); 
+  //       }
+  //     }
+
+  //     if (crops.isEmpty()) {
+  //       mapIterator.remove();
+  //     }
+  //   }
+    
+  //   player.gainXP(totalSold * 8);
+  // }
+
+  public void SellOneCrop(Player player, Scanner scanner) {
+    int cropCounter = 1;
+
+    if(storedCrops.isEmpty()) {
+      System.out.println("\nYou have no crop to sell.");
+      return;
+    }
+
+    System.out.println("\nSelect the number of the crop you wish to sell:");
+    System.out.print("-> ");
+    int selectedCrop = InputUtils.getValidIntInput(scanner, 1, storedCrops.size() + 1);
+
+    for(String cropName : new ArrayList<>(this.storedCrops.keySet())) {
+      List<Crop> cropList = this.storedCrops.get(cropName);
+
+      for(int i = 0; i < cropList.size(); i++) {
+        if(selectedCrop == cropCounter) {
+          Crop soldCrop = cropList.remove(i);
+          int coins = soldCrop.sell();
+
+          if(coins > 0) {
+            player.gainCoins(coins);
+          }
+
+          if(cropList.isEmpty()) {
+            storedCrops.remove(cropName);
+          }
         }
       }
-
-      if (crops.isEmpty()) {
-        mapIterator.remove();
-      }
     }
-    player.gainXP(totalSold * 8);
-    return totalEarned;
+    player.gainXP(20);
   }
 
 
