@@ -64,6 +64,7 @@ public class LivestockInventory extends Inventory{
     return false;
   }
 
+  // sell animal
   public void sellOneLivestock(Scanner scanner, Player player) {
     System.out.println("\n───────────────── SELL LIVESTOCK ─────────────────\n");
     
@@ -101,37 +102,55 @@ public class LivestockInventory extends Inventory{
     }
   }
 
+  //  getter
   public Map<String, List<Livestock>> getPetMap() {
     return this.pet;
   }
 
   @Override
-  public void viewData(){
-    System.out.println("\n───────────── INVENTORY : LIVESTOCK ─────────────");
-    if(this.pet.isEmpty()){
-      System.out.println("You do not have any animal friends right now.");
+  public void viewData() {
+    System.out.println("\n─────────────── INVENTORY : LIVESTOCK ───────────────\n");
+    if (this.pet.isEmpty()) {
+      System.out.println("You don't have any livestock yet.");
       return;
     }
 
-    int animalIndex = 1; 
+    String topLine    = "┌─────┬──────────────┬──────────┬──────────────┐";
+    String header     = "│ No. │     Name     │  Stage   │     Age      │";
+    String separator  = "├─────┼──────────────┼──────────┼──────────────┤";
+    String bottomLine = "└─────┴──────────────┴──────────┴──────────────┘";
+
+    int animalIndex = 1;
+
+    System.out.println(topLine);
+    System.out.println(header);
+
+    boolean firstSpecies = true;
     for(Map.Entry<String, List<Livestock>> entry : this.pet.entrySet()){
       String species = entry.getKey();
       List<Livestock> animals = entry.getValue();
-      
-      
-      System.out.println("-> " + species + " (" + animals.size() + "): ");
-      System.out.println("+" + "-".repeat(47) + "+"); // Increased width for the index
-      
+
+      if (!firstSpecies) {
+        System.out.println(separator);
+      }
+      firstSpecies = false;
+
+      String speciesHeader = String.format("│ %-40s │", "Species: " + species + " (" + animals.size() + ")");
+      System.out.println(speciesHeader);
+      System.out.println(separator);
+
       for (Livestock animal : animals){
-        String status = String.format("| %3d | %-12s | %-8s | %4d days old |",
-          animalIndex, // The consecutive index
+        String row = String.format(
+          "│ %-3d │ %-12s │ %-8s │%3d days old │",
+          animalIndex,
           animal.getPetName(),
           animal.getGrowthStage().toLowerCase(),
-          animal.getAge());
-        System.out.println(status);
-        animalIndex++; 
+          animal.getAge()
+        );
+        System.out.println(row);
+        animalIndex++;
       }
-      System.out.println("+" + "-".repeat(47) + "+");
     }
+    System.out.println(bottomLine);
   }
 }

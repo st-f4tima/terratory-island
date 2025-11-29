@@ -39,6 +39,25 @@ public class InventoryManager {
     }
   }
 
+  public static void handleFishInventory(Scanner scanner, Player player) {
+    while(true) {
+      player.getFishInventory().viewData();
+      InventoryManager.displaySellChoice();
+      System.out.print("-> ");
+
+      int sellChoice = InputUtils.getValidIntInput(scanner, 1, 2);
+
+      if(sellChoice == 1){
+        player.getFishInventory().sellAllFishes(player);
+        InputUtils.waitEnter(scanner);
+        break;
+      } else {
+        InputUtils.waitEnter(scanner);
+        break;
+      }
+    }
+  }
+
   public static void handleLivestockInventory(Scanner scanner, Player player) {
     while (true) {
       player.getLivestockInventory().viewData();
@@ -58,16 +77,16 @@ public class InventoryManager {
     }
   }
 
-  public static void handleFishInventory(Scanner scanner, Player player) {
-    while(true) {
-      player.getFishInventory().viewData();
+  public static void handleProduceInventory(Scanner scanner, Player player) {
+    while (true) {
+      player.getProduceInventory().viewData();
       InventoryManager.displaySellChoice();
       System.out.print("-> ");
-
+      
       int sellChoice = InputUtils.getValidIntInput(scanner, 1, 2);
 
-      if(sellChoice == 1){
-        player.getFishInventory().sellAllFishes(player);
+      if(sellChoice == 1) {
+        player.getProduceInventory().sellAllProduce(player);
         InputUtils.waitEnter(scanner);
         break;
       } else {
