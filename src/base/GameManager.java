@@ -186,10 +186,10 @@ public class GameManager {
     
     while (true) {
       System.out.print("\n-> ");
-      int fishingMenuChoice = scanner.nextInt();
+      int fishingMenuChoice = InputUtils.getValidIntInput(scanner, 1,2);
 
       if (fishingMenuChoice == 1) {
-        fishManager.catchFish(currentSeason);
+        fishManager.catchFish(currentSeason, player);
         break;
       } else if (fishingMenuChoice == 2) {
         displayMenu(scanner);

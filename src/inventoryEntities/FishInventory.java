@@ -8,6 +8,8 @@ import java.util.Iterator;
 import base.Inventory;
 import base.Player;
 import itemEntities.fish.Fish;
+import utils.InputUtils;
+import java.util.Scanner;
 
 public class FishInventory extends Inventory{
     private Map<String, List<Fish>> caughtFishes;
@@ -22,47 +24,52 @@ public class FishInventory extends Inventory{
 
         this.caughtFishes.computeIfAbsent(fishName, k -> new ArrayList<>()).add(fish);
 
-        super.addItem(fishName, fish.getYieldAmount());
+      /*   super.addItem(fishName, fish.getcaughtFishWeight()); */
 
-        System.out.println(fishName + " (" + fish.getYieldAmount() + ") added to inventory.");
+        System.out.println(fishName + " (" + fish.getcaughtFishWeight() + " kg) added to inventory.");
     }
-    
-    public int sellAllFishes(Player player) {
-        int totalEarned = 0;
-        int totalSold = 0;
 
-        if (caughtFishes.isEmpty()) {
-            System.out.println("You haven't caught any fish yet.");
-            return 0;
+    //need lagyan kasi dynamic at random ang weight ng fish
+    public int countAllFishes(){
+        int count = 0;
+        for (List<Fish> list : caughtFishes.values()){
+            count += list.size();
+        }
+        return count;
+    }
+
+    public void SellOneFish(Player player, Scanner scanner){
+        int fishCounter = 1;
+
+        if (caughtFishes.isEmpty()){
+            System.out.println("\nYou have no fish to sell.");
+            return;
         }
 
-        Iterator<Map.Entry<String, List<Fish>>> mapIterator = caughtFishes.entrySet().iterator();
+        System.out.println("\nSelect the number of the fish you wish to sell: ");
+        System.out.print("-> ");
+        int selectedFish = InputUtils.getValidIntInput(scanner, 1, countAllFishes());
 
-        while (mapIterator.hasNext()) {
-            Map.Entry<String, List<Fish>> entry = mapIterator.next();
-            List<Fish> fish = entry.getValue();
+        for (String fishName: new ArrayList<>(this.caughtFishes.keySet())){
+            List<Fish> fishList = this.caughtFishes.get(fishName);
 
-            Iterator<Fish> listIterator = fish.iterator();
+            for (int i = 0; i < fishList.size(); i++){
+                if (selectedFish == fishCounter) {
 
-            while (listIterator.hasNext()) {
-                Fish ffish = listIterator.next();
-                int coins = ffish.sell();
+                    Fish soldFish = fishList.remove(i);
+                    int coins = soldFish.sell();
 
-                if (coins > 0) {
-                    totalEarned += coins;
-                    totalSold ++;
-                    player.gainCoins(coins);
-                    listIterator.remove();
+                    if (coins > 0) {
+                        player.gainCoins(coins);
+                    }
+                    if (fishList.isEmpty()) {
+                        caughtFishes.remove(fishName);
+                    }
+                    player.gainXP(3);
                 }
-            }
-
-            if (fish.isEmpty()){
-                mapIterator.remove();
+                fishCounter++;
             }
         }
-
-        player.gainXP(totalSold * 5);
-        return totalEarned;
     }
 
     @Override
@@ -75,7 +82,7 @@ public class FishInventory extends Inventory{
     }
 
     String topLine = "┌─────┬────────────────┬──────────┬──────────────┐";
-    String header = "│ No. │ Fish Name      │ Quantity │ Sell Price   │";
+    String header = "│ No. │ Fish Name      │ Weight   │ Sell Price   │";
     String separator = "├─────┼────────────────┼──────────┼──────────────┤";
     String bottomLine = "└─────┴────────────────┴──────────┴──────────────┘";
 
@@ -85,20 +92,23 @@ public class FishInventory extends Inventory{
 
     int count = 1;
 
-    for (Map.Entry<String, List<Fish>> entry : this.caughtFishes.entrySet()) {
-        List<Fish> fish = entry.getValue();
+    for (Map.Entry<String, List<Fish>> entry : caughtFishes.entrySet()) {
+        for (Fish f: entry.getValue()){
+            int weight = f.getcaughtFishWeight();
+            int sellPrice = f.getCost() * weight;
 
-        for (Fish ffish : fish) {
             String row = String.format(
-            "│ %-3d │ %-14s │ %-8d │ %-12.2f │",
-            count++,
-            ffish.getName(),
-            ffish.getYieldAmount(),
-            ffish.getCost() * 1.5
-        );
-        System.out.println(row);
+                "| %-3d | %-14s | %-8d | %-12d |",
+                count++,
+                f.getName(),
+                weight,
+                sellPrice
+            );
+
+            System.out.println(row);
         }
+        }
+        System.out.println(bottomLine);
     }
-    System.out.println(bottomLine);
     }
-}
+
