@@ -67,23 +67,32 @@ public class CropInventory extends Inventory {
   // }
 
   public void SellOneCrop(Player player, Scanner scanner) {
-    int cropCounter = 1;
-
     if(storedCrops.isEmpty()) {
       System.out.println("\nYou have no crop to sell.");
       return;
     }
 
+    int totalCropsCount = 0;
+    for(List<Crop> cropList : this.storedCrops.values()) {
+      totalCropsCount += cropList.size();
+    }
+
     System.out.println("\nSelect the number of the crop you wish to sell:");
     System.out.print("-> ");
-    int selectedCrop = InputUtils.getValidIntInput(scanner, 1, storedCrops.size() + 1);
+    int selectedCrop = InputUtils.getValidIntInput(scanner, 1, totalCropsCount);
+
+    int cropCounter = 0;
+    boolean cropSold = false;
 
     for(String cropName : new ArrayList<>(this.storedCrops.keySet())) {
       List<Crop> cropList = this.storedCrops.get(cropName);
 
       for(int i = 0; i < cropList.size(); i++) {
+        cropCounter++;
+
         if(selectedCrop == cropCounter) {
           Crop soldCrop = cropList.remove(i);
+          i--;
           int coins = soldCrop.sell();
 
           if(coins > 0) {
@@ -93,6 +102,11 @@ public class CropInventory extends Inventory {
           if(cropList.isEmpty()) {
             storedCrops.remove(cropName);
           }
+          cropSold = true;
+          break;
+        }
+        if(cropSold) {
+          break;
         }
       }
     }
