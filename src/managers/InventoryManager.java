@@ -16,7 +16,7 @@ public class InventoryManager {
 
   public static void displaySellChoice() {
     System.out.println("\n\"Time to cash in your hard work!\"");
-    System.out.println("\n[1] Sell a crop");
+    System.out.println("\n[1] Sell an item");
     System.out.println("[2] I want do do something else\n");
   }
 

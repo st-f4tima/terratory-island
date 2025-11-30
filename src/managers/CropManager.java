@@ -15,8 +15,8 @@ import itemEntities.crop.fall.*;
 
 public class CropManager {
   private Player player;
-  private Map<String, List<Crop>> cropCollection;
-  private List<Crop> plantedCrops;
+  private Map<String, List<Crop>> cropCollection; // stores seasonal crop list
+  private List<Crop> plantedCrops; // stores all current plants (not yet harvested)
 
   public CropManager(Player player) {
     this.player = player;
@@ -25,6 +25,7 @@ public class CropManager {
     initializeCrops();
   }
 
+  // lopads all crops available per season
   private void initializeCrops() {
     cropCollection.put("Spring", List.of(new Potato(), new Strawberry(), new Cauliflower()));
     cropCollection.put("Summer", List.of(new Wheat(), new Melon(), new Starfruit()));
@@ -38,13 +39,13 @@ public class CropManager {
       return;
     }
 
-    String topLine = "┌─────┬──────────┬─────────┬──────────┬────────────┬─────────────┬─────────────┐";
-    String seperator = "├─────┼──────────┼─────────┼──────────┼────────────┼─────────────┼─────────────┤";
-    String bottomLine = "└─────┴──────────┴─────────┴──────────┴────────────┴─────────────┴─────────────┘";
+    String topLine    = "┌─────┬───────────────┬─────────┬──────────┬────────────┬─────────────┬─────────────┐";
+    String seperator  = "├─────┼───────────────┼─────────┼──────────┼────────────┼─────────────┼─────────────┤";
+    String bottomLine = "└─────┴───────────────┴─────────┴──────────┴────────────┴─────────────┴─────────────┘";
 
     System.out.println("\nCROP SUMMARY:");
     System.out.println(topLine);
-    System.out.printf("│%-5s│%-10s│%-9s│%-10s│%-12s│%-13s│%-13s│\n",
+    System.out.printf("│%-5s│%-15s│%-9s│%-10s│%-12s│%-13s│%-13s│\n",
             "Tile", "Crop", "Days", "Watered", "Fertilized", "Harvestable", "Est. Yield");
     System.out.println(seperator);
 
@@ -55,7 +56,7 @@ public class CropManager {
       String harvestable = crop.isHarvestable() ? "Mature" : "Growing";
       String days = crop.getDaysGrown() + "/" + crop.getGrowthDays();
 
-      System.out.printf("│%-5s│%-10s│%-9s│%-10s│%-12s│%-13s│%-13d│\n",
+      System.out.printf("│%-5s│%-15s│%-9s│%-10s│%-12s│%-13s│%-13d│\n",
       "T" + tileNumber,
       crop.getName(),
       days,
@@ -80,7 +81,7 @@ public class CropManager {
       return;
     }
 
-    // display available crops for the current season
+    // display seeds option
     System.out.println("\nAvailable Seeds:");
     for(int i = 0; i < availableCrops.size(); i++) {
       Crop crop = availableCrops.get(i);
@@ -201,7 +202,7 @@ public class CropManager {
 
     int grewCount = 0;
     int notGrewCount = 0;
-
+    System.out.println("\n[Crops Update]");
     for(Crop crop : plantedCrops) {
       if(crop.isWatered() && crop.isFertilized()) {
         crop.grow();
@@ -213,11 +214,11 @@ public class CropManager {
     }
 
     if (grewCount == plantedCrops.size()) {
-      System.out.println("\nAll your crops grew today!");
+      System.out.println("All your crops grew today!");
     } else if (grewCount > 0) {
-      System.out.println("\n" + grewCount + " crop(s) grew today, " + notGrewCount + " did not due to missing care.");
+      System.out.println(grewCount + " crop(s) grew today, " + notGrewCount + " did not due to missing care.");
     } else {
-      System.out.println("\nNone of your crops grew today. Make sure to water and fertilize them!");
+      System.out.println("None of your crops grew today. Make sure to water and fertilize them!");
     }
   }
   

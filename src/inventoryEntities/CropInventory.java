@@ -19,6 +19,7 @@ public class CropInventory extends Inventory {
     this.storedCrops = new HashMap<>();
   }
 
+  // add crop to the inventory
   public void addCrop(Crop crop) {
     String cropName = crop.getName();
 
@@ -29,43 +30,7 @@ public class CropInventory extends Inventory {
     System.out.println(cropName + " (" + crop.getYieldAmount() + ") added to inventory.");
   }
 
-  // public void sellAllCrops(Player player) {
-  //   int totalEarned = 0;
-  //   int totalSold = 0;
-
-  //   if (storedCrops.isEmpty()) {
-  //       System.out.println("You have no harvested crops.");
-  //       return;
-  //   }
-    
-  //   Iterator<Map.Entry<String, List<Crop>>> mapIterator = storedCrops.entrySet().iterator();
-
-  //   while (mapIterator.hasNext()) {
-  //     Map.Entry<String, List<Crop>> entry = mapIterator.next();
-  //     List<Crop> crops = entry.getValue();
-
-  //     Iterator<Crop> listIterator = crops.iterator();
-
-  //     while (listIterator.hasNext()) {
-  //       Crop crop = listIterator.next();
-  //       int coins = crop.sell();
-
-  //       if (coins > 0) {
-  //         totalEarned += coins;
-  //         totalSold++;
-  //         player.gainCoins(coins);
-  //         listIterator.remove(); 
-  //       }
-  //     }
-
-  //     if (crops.isEmpty()) {
-  //       mapIterator.remove();
-  //     }
-  //   }
-    
-  //   player.gainXP(totalSold * 8);
-  // }
-
+  // Sell a specific crop from inventory
   public void SellOneCrop(Player player, Scanner scanner) {
     if(storedCrops.isEmpty()) {
       System.out.println("\nYou have no crop to sell.");
@@ -123,9 +88,9 @@ public class CropInventory extends Inventory {
       return;
     }
 
-    String topLine = "┌─────┬────────────────┬──────────┬──────────────┐";
-    String header = "│ No. │ Crop Name      │ Quantity │ Sell Price   │";
-    String separator = "├─────┼────────────────┼──────────┼──────────────┤";
+    String topLine    = "┌─────┬────────────────┬──────────┬──────────────┐";
+    String header     = "│ No. │ Crop Name      │ Quantity │ Sell Price   │";
+    String separator  = "├─────┼────────────────┼──────────┼──────────────┤";
     String bottomLine = "└─────┴────────────────┴──────────┴──────────────┘";
 
     System.out.println(topLine);
