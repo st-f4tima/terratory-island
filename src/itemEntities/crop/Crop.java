@@ -24,7 +24,7 @@ public abstract class Crop extends Item {
 
   public abstract Crop createCopy();
 
-  // Getters
+  // getters
   public int getYieldAmount() {
     return yieldAmount;
   }
@@ -53,7 +53,7 @@ public abstract class Crop extends Item {
     return isHarvested;
   }
 
-  // Methods
+  // methods
   public void water() {
     isWatered = true;
   }
@@ -66,7 +66,7 @@ public abstract class Crop extends Item {
     daysGrown++;
   }
 
-  // for next day hehe
+  // Watering and fertilizing reset each day
   public void resetDailyCare() {
     this.isWatered = false;
     this.isFertilized = false;
