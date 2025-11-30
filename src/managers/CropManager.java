@@ -16,7 +16,7 @@ import itemEntities.crop.fall.*;
 public class CropManager {
   private Player player;
   private Map<String, List<Crop>> cropCollection; // stores seasonal crop list
-  private List<Crop> plantedCrops; // stores all current plants (not yet harvested)
+  private List<Crop> plantedCrops; // Stores all unharvested plants
 
   public CropManager(Player player) {
     this.player = player;
@@ -25,7 +25,7 @@ public class CropManager {
     initializeCrops();
   }
 
-  // lopads all crops available per season
+  // loads all crops available per season
   private void initializeCrops() {
     cropCollection.put("Spring", List.of(new Potato(), new Strawberry(), new Cauliflower()));
     cropCollection.put("Summer", List.of(new Wheat(), new Melon(), new Starfruit()));
@@ -145,12 +145,23 @@ public class CropManager {
       String choice = scanner.next().trim().toLowerCase();
 
       if (choice.equals("y")) {
+        int wateredCropsCount = 0;
+
         for (Crop crop : plantedCrops) {
-          crop.water();
+          if(!crop.isWatered()) {
+            crop.water();
+            wateredCropsCount++;
+          }
         }
-        System.out.println("\n[Success] All crops have been watered!");
-        player.gainXP(plantedCrops.size() * 2); // player gains xp!
+
+        if(wateredCropsCount == 0) {
+          System.out.println("\nAll crops have already been watered today!");
+        } else  {
+          System.out.println("\n[Success] " + wateredCropsCount + " crops have been watered!");
+          player.gainXP(plantedCrops.size() * 2); 
+        }
         break; 
+
       } else if (choice.equals("n")) {
         System.out.println("\nNo crops were watered.");
         break; 
@@ -178,11 +189,22 @@ public class CropManager {
       String choice = scanner.next().trim().toLowerCase();
 
       if (choice.equals("y")) {
+        int fertilizedCropsCount = 0;
+
         for (Crop crop : plantedCrops) {
-          crop.applyFertilizer();
+          if(!crop.isFertilized()) {
+            crop.applyFertilizer();
+            fertilizedCropsCount++;
+          }
         }
-        System.out.println("\n[Success] All crops have been fertilized!");
-        player.gainXP(plantedCrops.size() * 2); // player gains xp!
+        
+        if(fertilizedCropsCount == 0) {
+          System.out.println("\n[Success] All crops have already been fertilized!");
+        } else {
+          System.out.println("\n[Success] " + fertilizedCropsCount + " crops have been fertilized!");
+          player.gainXP(plantedCrops.size() * 2); 
+        }
+        
         break; 
       } else if (choice.equals("n")) {
         System.out.println("\nNo crops were fertilized.");
@@ -190,7 +212,7 @@ public class CropManager {
       } else {
         System.out.println("[Error] Please enter 'y' or 'n'."); 
       }
-  }
+    }
 
     InputUtils.waitEnter(scanner);
     scanner.nextLine();

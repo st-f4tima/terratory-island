@@ -19,11 +19,12 @@ public class GameManager {
   }
 
   public static boolean displayIntro(Scanner scanner) {
-    final String GREEN = "\u001B[32m";
+    // final String GREEN = "\u001B[32m";
+    final String YELLOW = "\u001B[33m";
     final String RESET = "\u001B[0m";
 
     System.out.println();
-    System.out.println(GREEN + """
+    System.out.println(YELLOW + """
       ██████ ██████ █████▄  █████▄  ▄████▄ ██████ ▄████▄ █████▄  ██  ██   ██ ▄█████ ██     ▄████▄ ███  ██ ████▄  
         ██   ██▄▄   ██▄▄██▄ ██▄▄██▄ ██▄▄██   ██   ██  ██ ██▄▄██▄  ▀██▀    ██ ▀▀▀▄▄▄ ██     ██▄▄██ ██ ▀▄██ ██  ██ 
         ██   ██▄▄▄▄ ██   ██ ██   ██ ██  ██   ██   ▀████▀ ██   ██   ██     ██ █████▀ ██████ ██  ██ ██   ██ ████▀  
