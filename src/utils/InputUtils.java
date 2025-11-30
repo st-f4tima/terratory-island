@@ -12,13 +12,7 @@ public class InputUtils {
     while (true) {
       try {
           String input = scanner.nextLine().trim();
-
-          // validate: must be a number (used regular expresion here)
-          if (!input.matches("\\d+")) {
-            showError(scanner, min, max);
-            continue;
-          }
-
+  
           int value = Integer.parseInt(input);
 
           // validate: if must be within the given range
@@ -28,6 +22,8 @@ public class InputUtils {
           }
 
           return value; 
+      } catch (NumberFormatException e) {
+        showError(scanner, min, max);
       } catch (Exception e) {
         showError(scanner, min, max);
       }

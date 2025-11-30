@@ -16,7 +16,6 @@ public class GameManager {
   
   public GameManager() {
     this.currentSeason = "Spring";
-    this.fishManager = new FishManager();
   }
 
   public static boolean displayIntro(Scanner scanner) {
@@ -57,9 +56,8 @@ public class GameManager {
     String islandName = scanner.nextLine();
 
     this.player = new Player(username, islandName);
-
-    // put managers here
     this.cropManager = new CropManager(player);
+    this.fishManager = new FishManager();
     this.livestockManager = new LivestockManager(player.getLivestockInventory(), player.getProduceInventory());
 
     System.out.println("\nCharacter created successfully!");
@@ -112,12 +110,12 @@ public class GameManager {
         proceedToNextDay(scanner);
         continue;
       } else {
-        System.out.println("Thank you!"); // not final msg
+        leaveGame(scanner);
         return;
       } 
     }
   }
-
+  // main menu: check farm fields
   public void checkFarmFields(Scanner scanner) {
     while (true) {
       System.out.println("\n──────────────── FARM FIELDS ────────────────");
@@ -150,7 +148,7 @@ public class GameManager {
     }
   }
 
-  // visit the animals
+  // main menu: visit the animals
   public void visitAnimalBarn(Scanner scanner) {
     while (true) {
       System.out.println("\n──────────────── ANIMAL BARN ───────────────\n");
@@ -178,7 +176,7 @@ public class GameManager {
     }
   }
 
-  //  go fish
+  //  main menu: go fish
   public void visitFishingDock(Scanner scanner) {
     System.out.println("\n──────────────── FISHING DOCK ───────────────\n");
     System.out.println("\"Fishing time! Remember: patience is key, and so is random luck.\"\n");
@@ -191,16 +189,15 @@ public class GameManager {
 
       if (fishingMenuChoice == 1) {
         fishManager.catchFish(currentSeason, player);
-        break;
-      } else if (fishingMenuChoice == 2) {
-        displayMenu(scanner);
-        break;
+        continue;
       } else {
-        System.out.println("[Error] Please select a number from 1 to 2.");
-      }
+        displayMenu(scanner);
+        return;
+      } 
     }
   }
 
+  // main menu: open inventory
   public void openInventory(Scanner scanner) {
     while (true) {
       System.out.println("\n───────────────── INVENTORY ─────────────────\n");
@@ -226,6 +223,7 @@ public class GameManager {
     }
   }
 
+  // main menu: proceed to next day
   public void proceedToNextDay(Scanner scanner) {
     player.nextDay();
     updateSeason();
@@ -238,7 +236,28 @@ public class GameManager {
     InputUtils.waitEnter(scanner);
   }
 
-  // TODO: Implement LeaveGame()
+  // main menu: leave the game
+  public void leaveGame(Scanner scanner) {
+    System.out.println("\n────────────────── LEAVE GAME ───────────────\n");
+    System.out.println("Are you sure you want to quit?");
+    System.out.println("[!] Your game will not be saved...");
+    System.out.println("\n[1] Yes");
+    System.out.println("[2] No");
+
+    while (true) {
+      System.out.print("\n-> ");
+      int leaveGameChoice = InputUtils.getValidIntInput(scanner, 1, 2);
+
+      if(leaveGameChoice == 1) {
+        System.out.println("\n\"Good luck on your future endeavors, " + player.getUsername());
+        System.out.println("May the lessons you learned here continue to guide you.\"\n");
+        System.exit(0);
+      } else {
+        InputUtils.waitEnter(scanner);
+        displayMenu(scanner);
+      }
+    }
+  }
 
   private void updateSeason() {
     int day = player.getDayCount() % 112;
