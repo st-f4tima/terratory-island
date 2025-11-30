@@ -179,17 +179,17 @@ public class GameManager {
 
   //  main menu: go fish
   public void visitFishingDock(Scanner scanner) {
-    System.out.println("\n──────────────── FISHING DOCK ───────────────\n");
-    System.out.println("\"Fishing time! Remember: patience is key, and so is random luck.\"\n");
-    System.out.println("1. Start Fishing");
-    System.out.println("2. I want to do something else");
-    
     while (true) {
+      System.out.println("\n──────────────── FISHING DOCK ───────────────\n");
+      System.out.println("\"Fishing time! Remember: patience is key, and so is random luck.\"\n");
+      System.out.println("1. Start Fishing");
+      System.out.println("2. I want to do something else");
       System.out.print("\n-> ");
+      
       int fishingMenuChoice = InputUtils.getValidIntInput(scanner, 1,2);
 
       if (fishingMenuChoice == 1) {
-        fishManager.catchFish(currentSeason, player);
+        fishManager.catchFish(currentSeason, player, scanner);
         continue;
       } else {
         displayMenu(scanner);

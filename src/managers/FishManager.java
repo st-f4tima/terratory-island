@@ -3,11 +3,14 @@ package managers;
 import base.Player;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
+
 import itemEntities.fish.Fish;
 import itemEntities.fish.fall.*;
 import itemEntities.fish.spring.*;
 import itemEntities.fish.summer.*;
 import itemEntities.fish.winter.*;
+import utils.InputUtils;
 
 
 public class FishManager {
@@ -59,8 +62,7 @@ public class FishManager {
         return 1+ random.nextInt(randomFish.getMaxWeight()); 
     }
 
-
-    public Fish catchFish(String currentSeason, Player player) {
+    public Fish catchFish(String currentSeason, Player player, Scanner scanner) {
         System.out.println("\nCasting your line...");
         Fish caughtFish = getRandomFish(currentSeason);
         int caughtFishWeight = getRandomWeight(caughtFish);
@@ -68,11 +70,22 @@ public class FishManager {
 
         System.out.println("\nYou caught a " + caughtFish.getName() + " weighing " + caughtFishWeight + " kg!");
 
-        if (player != null && player.getFishInventory() != null) {
+        if (player != null && player.getFishInventory() != null){
             player.getFishInventory().addFish(caughtFish);
         }
 
-        return caughtFish;
+        while (true) {
+            System.out.print("\nGo fishing again? (y/n): ");
+            String fishAgain = scanner.nextLine().trim().toLowerCase();
+
+            if (fishAgain.equals("y")){
+                return catchFish(currentSeason, player, scanner);
+            }
+            else if (fishAgain.equals("n")){
+                InputUtils.waitEnter(scanner);
+                return caughtFish;
+            }
+        }
     }
 
 }

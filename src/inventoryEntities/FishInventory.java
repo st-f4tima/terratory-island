@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Iterator;
 import base.Inventory;
 import base.Player;
 import itemEntities.fish.Fish;
@@ -92,14 +93,14 @@ public class FishInventory extends Inventory{
     int count = 1;
 
     for (Map.Entry<String, List<Fish>> entry : caughtFishes.entrySet()) {
-        for (Fish f: entry.getValue()){
-            int weight = f.getcaughtFishWeight();
-            int sellPrice = f.getCost() * weight;
+        for (Fish fish: entry.getValue()){
+            int weight = fish.getcaughtFishWeight();
+            int sellPrice = fish.getCost() * weight;
 
             String row = String.format(
                 "| %-3d | %-14s | %-8d | %-12d |",
                 count++,
-                f.getName(),
+                fish.getName(),
                 weight,
                 sellPrice
             );
