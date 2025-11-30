@@ -178,6 +178,7 @@ public class GameManager {
     }
   }
 
+  //  go fish
   public void visitFishingDock(Scanner scanner) {
     System.out.println("\n──────────────── FISHING DOCK ───────────────\n");
     System.out.println("\"Fishing time! Remember: patience is key, and so is random luck.\"\n");
@@ -212,9 +213,9 @@ public class GameManager {
         InventoryManager.handleCropInventory(scanner, player);
         continue;
       } else if (inventoryChoice == 2) {
-
-      } else if (inventoryChoice == 3) {
         InventoryManager.handleLivestockInventory(scanner, player);
+      } else if (inventoryChoice == 3) {
+        InventoryManager.handleProduceInventory(scanner, player);
         continue;
       } else if (inventoryChoice == 4) {
         InventoryManager.handleFishInventory(scanner, player);
@@ -231,6 +232,7 @@ public class GameManager {
 
     System.out.println("\nWelcome to Day " + player.getDayCount() + " of " + currentSeason + "!");
     cropManager.growCrops();
+    livestockManager.checkAndGrantLivestock(player);
     livestockManager.growAllLivestock();
     
     InputUtils.waitEnter(scanner);
