@@ -6,8 +6,8 @@ public abstract class Livestock extends Item{
     protected String petName;
     protected String growthStage;
     protected int age;
-    protected int breedCooldown;
     protected boolean isFed;
+    public int breedCooldown;
 
     public Livestock(String name, int cost, int levelRequired, String petName, int age, int breedCooldown, boolean isFed){
         super(name, cost, levelRequired);
@@ -34,7 +34,7 @@ public abstract class Livestock extends Item{
         }
     }
 
-    // progression (in-game)
+    //  progression (in-game)
     public void growLivestock(){
         this.age++;
         if (this.breedCooldown > 0) {
@@ -48,19 +48,6 @@ public abstract class Livestock extends Item{
     protected abstract Livestock birth(String babyName);
     public abstract String getProduce();
     public abstract int collectProduce();
-
-    //  getters
-    public String getPetName(){
-        return this.petName;
-    }
-
-    public String getGrowthStage(){
-        return this.growthStage;
-    }
-
-    public int getAge(){
-        return this.age;
-    }
 
     //  called in play
     public final Livestock breed(String babyName){
@@ -87,6 +74,24 @@ public abstract class Livestock extends Item{
         } else {
             System.out.println(this.petName + " already ate.");
         }
+    }
+
+    //  getters
+    public String getPetName(){
+        return this.petName;
+    }
+
+    public String getGrowthStage(){
+        return this.growthStage;
+    }
+
+    public int getAge(){
+        return this.age;
+    }
+
+    //  setters
+    public void setBreedCooldown(int cooldown) {
+    this.breedCooldown = cooldown;
     }
 
     @Override

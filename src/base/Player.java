@@ -27,6 +27,7 @@ public class Player {
     this.cropInventory = new CropInventory();
     this.livestockInventory = new LivestockInventory();
     this.fishInventory = new FishInventory();
+    this.produceInventory = new ProduceInventory();
   }
 
   // getters
