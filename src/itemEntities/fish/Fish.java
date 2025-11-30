@@ -5,6 +5,7 @@ import base.Item;
 public abstract class Fish extends Item {
     protected String season;
     protected int maxWeight;
+    protected int caughtFishWeight;
 
     public Fish(String name, int baseCost, int unlockLevel, String season, int maxWeight) {
         super(name, baseCost, unlockLevel);
@@ -20,14 +21,18 @@ public abstract class Fish extends Item {
         return maxWeight;
     }
 
-    public int getYieldAmount() {
-        return 1;
+    public int getcaughtFishWeight(){
+        return caughtFishWeight;
+    }
+
+    public void setCaughtFishWeight(int weight){
+        this.caughtFishWeight = weight;
     }
 
     @Override
     public int sell() {
-        int sellPrice = getCost() * maxWeight;
-        System.out.println("You sell an/a " + this.getName() + " for a price of " + sellPrice);
+        int sellPrice = getCost() * getcaughtFishWeight();
+        System.out.println("You sell an/a " + this.getName() + " for a price of " + sellPrice + ".");
         return sellPrice;
     }
 }

@@ -48,7 +48,7 @@ public class InventoryManager {
       int sellChoice = InputUtils.getValidIntInput(scanner, 1, 2);
 
       if(sellChoice == 1){
-        player.getFishInventory().sellAllFishes(player);
+        player.getFishInventory().SellOneFish(player,scanner);
         InputUtils.waitEnter(scanner);
         break;
       } else {
@@ -85,8 +85,8 @@ public class InventoryManager {
       
       int sellChoice = InputUtils.getValidIntInput(scanner, 1, 2);
 
-      if(sellChoice == 1) {
-        player.getProduceInventory().sellAllProduce(player);
+      if(sellChoice == 1){
+        player.getFishInventory().SellOneFish(player, scanner);
         InputUtils.waitEnter(scanner);
         break;
       } else {

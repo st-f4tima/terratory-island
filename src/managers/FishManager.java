@@ -1,5 +1,6 @@
 package managers;
 
+import base.Player;
 import java.util.List;
 import java.util.Random;
 import itemEntities.fish.Fish;
@@ -55,16 +56,23 @@ public class FishManager {
     }
 
     public int getRandomWeight(Fish randomFish) {
-        return random.nextInt((randomFish.getMaxWeight()) + 2); 
+        return 1+ random.nextInt(randomFish.getMaxWeight()); 
     }
 
-    public void catchFish(String currentSeason) {
+
+    public Fish catchFish(String currentSeason, Player player) {
         System.out.println("\nCasting your line...");
         Fish caughtFish = getRandomFish(currentSeason);
         int caughtFishWeight = getRandomWeight(caughtFish);
+        caughtFish.setCaughtFishWeight(caughtFishWeight);
 
         System.out.println("\nYou caught a " + caughtFish.getName() + " weighing " + caughtFishWeight + " kg!");
 
+        if (player != null && player.getFishInventory() != null) {
+            player.getFishInventory().addFish(caughtFish);
+        }
+
+        return caughtFish;
     }
 
 }
