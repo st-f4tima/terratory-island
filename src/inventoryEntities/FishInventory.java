@@ -89,9 +89,9 @@ public class FishInventory extends Inventory{
       return;
     }
 
-    String topLine = "┌─────┬────────────────┬──────────┬──────────────┐";
-    String header = "│ No. │ Fish Name      │ Weight   │ Sell Price   │";
-    String separator = "├─────┼────────────────┼──────────┼──────────────┤";
+    String topLine    = "┌─────┬────────────────┬──────────┬──────────────┐";
+    String header     = "│ No. │ Fish Name      │ Weight   │ Sell Price   │";
+    String separator  = "├─────┼────────────────┼──────────┼──────────────┤";
     String bottomLine = "└─────┴────────────────┴──────────┴──────────────┘";
 
     System.out.println(topLine);
@@ -103,10 +103,10 @@ public class FishInventory extends Inventory{
   for (Map.Entry<String, List<Fish>> entry : caughtFishes.entrySet()) {
     for (Fish fish: entry.getValue()){
         int weight = fish.getcaughtFishWeight();
-        int sellPrice = fish.getCost() * weight;
+        double sellPrice = fish.getCost() * weight;
 
         String row = String.format(
-            "| %-3d | %-14s | %-8d | %-12d |",
+            "| %-3d | %-14s | %-8d | %-12.2f |",
             count++,
             fish.getName(),
             weight,
