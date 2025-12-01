@@ -85,6 +85,9 @@ public class FishManager {
                 InputUtils.waitEnter(scanner);
                 return caughtFish;
             }
+            else {
+              System.out.println("[Error] Please enter 'y' or 'n'.");
+            }
         }
     }
 
