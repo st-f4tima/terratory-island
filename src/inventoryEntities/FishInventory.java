@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Iterator;
+import java.util.Scanner;
+
 import base.Inventory;
 import base.Player;
 import itemEntities.fish.Fish;
 import utils.InputUtils;
-import java.util.Scanner;
+
 
 public class FishInventory extends Inventory{
     private Map<String, List<Fish>> caughtFishes;
