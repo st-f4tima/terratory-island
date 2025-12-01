@@ -17,22 +17,22 @@ public abstract class Fish extends Item {
     return season;
   }
 
-    public int getMaxWeight() {
-        return maxWeight;
-    }
+  public int getMaxWeight() {
+    return maxWeight;
+  }
 
-    public int getcaughtFishWeight(){
-        return caughtFishWeight;
-    }
+  public int getcaughtFishWeight(){
+    return caughtFishWeight;
+  }
 
-    public void setCaughtFishWeight(int weight){
-        this.caughtFishWeight = weight;
-    }
+  public void setCaughtFishWeight(int weight){
+    this.caughtFishWeight = weight;
+  }
 
-    @Override
-    public int sell() {
-      int sellPrice = getCost() * getcaughtFishWeight();
-      System.out.println("You sell an/a " + this.getName() + " for a price of " + sellPrice + ".");
-      return sellPrice;
-    }
+  @Override
+  public int sell() {
+    int sellPrice = getCost() * getcaughtFishWeight();
+    System.out.println("You sell an/a " + this.getName() + " for a price of " + sellPrice + ".");
+    return sellPrice;
+  }
 }
