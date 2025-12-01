@@ -3,13 +3,13 @@ package itemEntities.fish.fall;
 import itemEntities.fish.Fish;
 
 public class Trout extends Fish {
-    public Trout() {
-        super(
-            "Trout",
-            180,
-            1,
-            "Fall",
-            10
-        );
-    }
+  public Trout() {
+    super(
+      "Trout",
+      180,
+      1,
+      "Fall",
+      10
+    );
+  }
 }

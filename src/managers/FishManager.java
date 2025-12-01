@@ -14,81 +14,80 @@ import utils.InputUtils;
 
 
 public class FishManager {
-    Random random;
-    List<Fish> springFish;
-    List<Fish> summerFish;
-    List<Fish> fallFish;
-    List<Fish> winterFish;
+  Random random;
+  List<Fish> springFish;
+  List<Fish> summerFish;
+  List<Fish> fallFish;
+  List<Fish> winterFish;
 
-    public FishManager() {
-        this.random = new Random();
-        springFish = List.of(new Anchovy(), new Catfish(), new Mullet());
-        summerFish = List.of(new Mackerel(), new Sardines(), new Tuna());
-        fallFish = List.of(new Cod(), new Salmon(), new Trout());
-        winterFish = List.of(new Perch(), new Pollock(), new Smelt());
-    }
+  public FishManager() {
+    this.random = new Random();
+    springFish = List.of(new Anchovy(), new Catfish(), new Mullet());
+    summerFish = List.of(new Mackerel(), new Sardines(), new Tuna());
+    fallFish = List.of(new Cod(), new Salmon(), new Trout());
+    winterFish = List.of(new Perch(), new Pollock(), new Smelt());
+  }
 
-    public List<Fish> getFishPerSeason(String currentSeason) {
-        List<Fish> availableFishes;
+  public List<Fish> getFishPerSeason(String currentSeason) {
+    List<Fish> availableFishes;
         
-        switch (currentSeason) {
-            case "Spring":
-                availableFishes = springFish;
-                break;
-            case "Summer": 
-                availableFishes = summerFish;
-                break;
-            case "Fall":
-                availableFishes = fallFish;
-                break;
-            case "Winter":
-                availableFishes = winterFish;
-                break;
-            default:
-                System.out.println("Invalid season.");
-                return null;
+    switch (currentSeason) {
+      case "Spring":
+        availableFishes = springFish;
+        break;
+      case "Summer": 
+        availableFishes = summerFish;
+        break;
+      case "Fall":
+        availableFishes = fallFish;
+        break;
+      case "Winter":
+        availableFishes = winterFish;
+        break;
+      default:
+        System.out.println("Invalid season.");
+        return null;
         }
-        return availableFishes;
-    }
+    return availableFishes;
+  }
 
-    public Fish getRandomFish(String currentSeason) {
-        List<Fish> availableFish = getFishPerSeason(currentSeason);
+  public Fish getRandomFish(String currentSeason) {
+    List<Fish> availableFish = getFishPerSeason(currentSeason);
         
-        int randomIndex = random.nextInt(availableFish.size());
-        return availableFish.get(randomIndex);
+    int randomIndex = random.nextInt(availableFish.size());
+    return availableFish.get(randomIndex);
+  }
+
+  public int getRandomWeight(Fish randomFish) {
+    return 1+ random.nextInt(randomFish.getMaxWeight()); 
+  }
+
+  public Fish catchFish(String currentSeason, Player player, Scanner scanner) {
+    System.out.println("\nCasting your line...");
+    Fish caughtFish = getRandomFish(currentSeason);
+    int caughtFishWeight = getRandomWeight(caughtFish);
+    caughtFish.setCaughtFishWeight(caughtFishWeight);
+
+    System.out.println("\nYou caught a/an " + caughtFish.getName() + " weighing " + caughtFishWeight + " kg!");
+
+    if (player != null && player.getFishInventory() != null){
+      player.getFishInventory().addFish(caughtFish);
     }
 
-    public int getRandomWeight(Fish randomFish) {
-        return 1+ random.nextInt(randomFish.getMaxWeight()); 
-    }
+      while (true) {
+        System.out.print("\nGo fishing again? (y/n): ");
+        String fishAgain = scanner.nextLine().trim().toLowerCase();
 
-    public Fish catchFish(String currentSeason, Player player, Scanner scanner) {
-        System.out.println("\nCasting your line...");
-        Fish caughtFish = getRandomFish(currentSeason);
-        int caughtFishWeight = getRandomWeight(caughtFish);
-        caughtFish.setCaughtFishWeight(caughtFishWeight);
-
-        System.out.println("\nYou caught a " + caughtFish.getName() + " weighing " + caughtFishWeight + " kg!");
-
-        if (player != null && player.getFishInventory() != null){
-            player.getFishInventory().addFish(caughtFish);
+        if (fishAgain.equals("y")){
+          return catchFish(currentSeason, player, scanner);
         }
-
-        while (true) {
-            System.out.print("\nGo fishing again? (y/n): ");
-            String fishAgain = scanner.nextLine().trim().toLowerCase();
-
-            if (fishAgain.equals("y")){
-                return catchFish(currentSeason, player, scanner);
-            }
-            else if (fishAgain.equals("n")){
-                InputUtils.waitEnter(scanner);
-                return caughtFish;
-            }
-            else {
-              System.out.println("[Error] Please enter 'y' or 'n'.");
-            }
-        }
+        else if (fishAgain.equals("n")){
+          InputUtils.waitEnter(scanner);
+          return caughtFish;
+        } 
+        else {
+        System.out.println("[Error] Please enter 'y' or 'n'.");
+      }
     }
-
+  }
 }
