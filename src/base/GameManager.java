@@ -82,9 +82,9 @@ public class GameManager {
       );
 
       System.out.println("\n\"What would you like to do today?\"");
-      String topLine    = "┌─────────────────────────┬─────────────────────────┬─────────────────────────┐";
+      String topLine      = "┌─────────────────────────┬─────────────────────────┬─────────────────────────┐";
       String separator    = "├─────────────────────────┼─────────────────────────┼─────────────────────────┤";
-      String bottomLine = "└─────────────────────────┴─────────────────────────┴─────────────────────────┘";
+      String bottomLine   = "└─────────────────────────┴─────────────────────────┴─────────────────────────┘";
       System.out.println(topLine);
       System.out.printf("│%-25s│%-25s│%-25s│\n", "       ACTIVITIES", "       MANAGEMENT", "         SYSTEM");
       System.out.println(separator);
@@ -101,6 +101,7 @@ public class GameManager {
         continue;
       } else if (menuChoice == 2) {
         visitAnimalBarn(scanner);
+        continue;
       } else if (menuChoice == 3) {
         visitFishingDock(scanner);
         continue;
@@ -153,6 +154,7 @@ public class GameManager {
   public void visitAnimalBarn(Scanner scanner) {
     while (true) {
       System.out.println("\n──────────────── ANIMAL BARN ───────────────\n");
+      livestockManager.displayLivestockSummary();
       System.out.println("\"Time to check on your friends!~ What needs doing in the barn today?\"\n");
       System.out.println("[1] Feed Animals");
       System.out.println("[2] Breed Animals");
@@ -212,6 +214,7 @@ public class GameManager {
         continue;
       } else if (inventoryChoice == 2) {
         InventoryManager.handleLivestockInventory(scanner, player);
+        continue;
       } else if (inventoryChoice == 3) {
         InventoryManager.handleProduceInventory(scanner, player);
         continue;
@@ -240,18 +243,24 @@ public class GameManager {
   // main menu: leave the game
   public void leaveGame(Scanner scanner) {
     System.out.println("\n────────────────── LEAVE GAME ───────────────\n");
-    System.out.println("Are you sure you want to quit?");
-    System.out.println("[!] Your game will not be saved...");
-    System.out.println("\n[1] Yes");
-    System.out.println("[2] No");
+    String exitPrompt = "The air grows heavy, tasting of unfixed fences and unwatered earth.\nYou feel the weight of every choice you made.\n\n" +
+                        "Are you certain you wish to abandon this island?\n\n" +
+                        "Know this:\nYour fields will turn to weeds, your barn will fall silent,\nand the fish will return to the deepest part of the waters,\nall progress vanished like morning dew.\n\n" +
+                        "There is no going back.";
+    System.out.println(exitPrompt);
+    System.out.println("\n[1] Leave");
+    System.out.println("[2] Stay");
 
     while (true) {
       System.out.print("\n-> ");
       int leaveGameChoice = InputUtils.getValidIntInput(scanner, 1, 2);
+      String finalPrompt = "\nThe system registers your command, " +
+                        player.getUsername() +
+                        ".\n\nThere is no backup, no rewind, no recovery." +
+                        "\n\nThis is the price of your exit.\n\n";
 
       if(leaveGameChoice == 1) {
-        System.out.println("\n\"Good luck on your future endeavors, " + player.getUsername());
-        System.out.println("May the lessons you learned here continue to guide you.\"\n");
+        System.out.println(finalPrompt);
         System.exit(0);
       } else {
         InputUtils.waitEnter(scanner);

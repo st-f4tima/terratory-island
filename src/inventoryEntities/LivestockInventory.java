@@ -108,15 +108,16 @@ public class LivestockInventory extends Inventory{
   @Override
   public void viewData() {
     System.out.println("\n─────────────── INVENTORY : LIVESTOCK ───────────────\n");
+
     if (this.pet.isEmpty()) {
       System.out.println("You don't have any livestock yet.");
       return;
     }
 
-    String topLine    = "┌─────┬──────────────┬──────────┬──────────────┐";
-    String header     = "│ No. │     Name     │  Stage   │     Age      │";
-    String separator  = "├─────┼──────────────┼──────────┼──────────────┤";
-    String bottomLine = "└─────┴──────────────┴──────────┴──────────────┘";
+    String topLine    = "┌─────┬──────────────┬───────────┬───────────────┬──────────────┐";
+    String header     = "│ No. │    Name      │   Stage   │      Age      │  Sell Price  │";
+    String separator  = "├─────┼──────────────┼───────────┼───────────────┼──────────────┤";
+    String bottomLine = "└─────┴──────────────┴───────────┴───────────────┴──────────────┘";
 
     int animalIndex = 1;
 
@@ -133,22 +134,23 @@ public class LivestockInventory extends Inventory{
       }
       firstSpecies = false;
 
-      String speciesHeader = String.format("│ %-40s │", "Species: " + species + " (" + animals.size() + ")");
+      String speciesHeader = String.format("│ %-56s │", "Species: " + species + " (" + animals.size() + ")");
       System.out.println(speciesHeader);
       System.out.println(separator);
 
       for (Livestock animal : animals){
         String row = String.format(
-          "│ %-3d │ %-12s │ %-8s │%3d days old │",
+          "│ %-3d │ %-12s │ %-9s │  %3d days old │ %-12.2f │", 
           animalIndex,
           animal.getPetName(),
           animal.getGrowthStage().toLowerCase(),
-          animal.getAge()
+          animal.getAge(),
+          animal.getSellPrice()
         );
         System.out.println(row);
         animalIndex++;
       }
     }
     System.out.println(bottomLine);
-  }
+}
 }
