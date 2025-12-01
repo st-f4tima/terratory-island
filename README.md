@@ -1,11 +1,11 @@
-<h1 align="center"><a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Pixelify+Sans&weight=500&size=50&duration=1000&pause=1000&color=F7F7F7&center=true&vCenter=true&multiline=true&repeat=false&width=800&height=65&lines=%E2%9B%B5+Terratory+Island+%F0%9F%8F%9D%EF%B8%8F" alt="Typing SVG" /></a></h1>
+<h1 align="center"><a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Pixelify+Sans&weight=500&size=50&duration=1000&pause=1000&color=F7F7F7&center=true&vCenter=true&multiline=true&repeat=false&width=500&height=65&lines=%E2%9B%B5+Terratory+Island+%F0%9F%8F%9D%EF%B8%8F" alt="Typing SVG" /></a></h1>
 
 <p align="center">
   <img src="assets/banner.gif" width="800">
 </p>
 
 <p align="center">
-  <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Jersey+10&weight=500&size=16&duration=1000&pause=1000&color=F7F7F7&center=true&vCenter=true&multiline=true&repeat=false&width=600&height=100&lines=The+little+island+awaits+its+new+caretaker!+;Seasonal+algorithms+are+active%2C;guaranteeing+fresh+delivery+of+crops%2C+fish%2C+and+animals.;Proceed+with+gentle%2C+essential+resource+tending." alt="Typing SVG" /></a>
+  <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Jersey+10&weight=500&size=16&duration=1000&pause=1000&color=F7F7F7&center=true&vCenter=true&multiline=true&repeat=false&width=500&height=80&lines=The+little+island+awaits+its+new+caretaker!+;Seasonal+algorithms+are+active%2C;guaranteeing+fresh+delivery+of+crops%2C+fish%2C+and+animals.;Proceed+with+gentle%2C+essential+resource+tending." alt="Typing SVG" /></a>
 </p>
 
 <p align="center">
@@ -48,7 +48,7 @@ terratory-island/
 │   │       └── winter/
 │   ├── managers/
 │   ├── utils/
-│   └── App.java  #Main application entry point
+│   └── App.java  # Main application entry point
 │
 │── .gitignore
 └── README.md
@@ -67,10 +67,10 @@ terratory-island/
   - Specialized storage systems for different item categories - manages storage for crops, fish, livestock, and animal products.
 
 - **src/itemEntities/**
-  Contains all game items organized by type:
-  - `animal/` - Livestock categorized by product type (egg-layers, milk-producers, unique)
-  - `crop/`- Seasonal farming crops (fall, spring, summer)
-  - `fish/` - Seasonal fish species (fall, spring, summer, winter)
+  - Contains all game items organized by type:
+    - `animal/` - Livestock categorized by product type (egg-layers, milk-producers, unique)
+    - `crop/`- Seasonal farming crops (fall, spring, summer)
+    - `fish/` - Seasonal fish species (fall, spring, summer, winter)
 
 - **src/managers/**
   - Handle operations for crop planting/harvesting, fishing mechanics, livestock care, and inventory management in game manager.
@@ -101,10 +101,6 @@ Follow these steps to play **Terratory Island**:
   ```
 
 #### 4. Run the Game
-
-- **Using an IDE:**
-  - Right-click `src/App.java` → Select **Run**
-
 - **Using Terminal:**
   ```bash
   java App.java
