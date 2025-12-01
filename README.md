@@ -30,7 +30,7 @@
 
 The project's demonstration of the four pillars of Object-Oriented Programming.
 
-|**Pillar​  ​​  ​   ​  ​  | Implementation | Code Samples |
+|Pillar​  ​​  ​   ​  ​  | Implementation | Code Samples |
 |-----------|----------------------------|-------------------|
 | **Abstraction** | Defines core contracts and shared properties using **Abstract Classes**. All items and inventories follow these blueprints. | `Item`, `Inventory`, `Crop`, `Livestock`, `Fish` |
 | **Inheritance** | Specialized classes inherit common fields and methods from `Item`. Establishes clean hierarchy in game entities. | `Crop`, `Livestock`, `Fish` → all inherit from `Item` |
