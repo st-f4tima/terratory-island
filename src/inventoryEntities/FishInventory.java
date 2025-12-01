@@ -46,9 +46,15 @@ public class FishInventory extends Inventory{
             return;
         }
 
-        System.out.println("\nSelect the number of the fish you wish to sell: ");
+        System.out.println("\nWhich animal would you like to sell? (Enter Number)");
+        System.out.println("[0] Cancel Sale");
         System.out.print("-> ");
-        int selectedFish = InputUtils.getValidIntInput(scanner, 1, countAllFishes());
+        int selectedFish = InputUtils.getValidIntInput(scanner, 0, countAllFishes());
+
+        if (selectedFish == 0) {
+          System.out.println("Sale cancelled.");
+          return;
+        }
 
         for (String fishName: new ArrayList<>(this.caughtFishes.keySet())){
             List<Fish> fishList = this.caughtFishes.get(fishName);
