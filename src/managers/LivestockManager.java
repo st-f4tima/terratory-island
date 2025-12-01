@@ -49,6 +49,47 @@ public class LivestockManager {
       }
   }
 
+  // display after barn interaction
+  public void displayLivestockSummary() {
+    if (this.livestockInventory.getPetMap().isEmpty()) { 
+      System.out.println("You don't have any livestock yet.");
+      return;
+    }
+
+    String topLine    = "┌──────────────┬───────────┐";
+    String header     = "│     Name     │   Stage   │";
+    String separator  = "├──────────────┼───────────┤";
+    String bottomLine = "└──────────────┴───────────┘";
+
+    System.out.println(topLine);
+    System.out.println(header);
+
+    boolean firstSpecies = true;
+    for(Map.Entry<String, List<Livestock>> entry : this.livestockInventory.getPetMap().entrySet()){
+      String species = entry.getKey();
+      List<Livestock> animals = entry.getValue();
+
+      if (!firstSpecies) {
+        System.out.println(separator);
+      }
+      firstSpecies = false;
+
+      String speciesHeader = String.format("│ %-24s │", "Species: " + species + " (" + animals.size() + ")"); 
+      System.out.println(speciesHeader);
+      System.out.println(separator);
+
+      for (Livestock animal : animals){
+        String row = String.format(
+          "│ %-12s │ %-9s │", 
+          animal.getPetName(),
+          animal.getGrowthStage().toLowerCase()
+        );
+        System.out.println(row);
+      }
+    }
+    System.out.println(bottomLine);
+  }
+
   //  method to check player level and grant livestock up to twice per species
   public void checkAndGrantLivestock(Player player) {
     int playerLevel = player.getLevel();

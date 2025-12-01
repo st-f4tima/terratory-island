@@ -17,7 +17,7 @@ public abstract class Livestock extends Item{
         this.isFed = isFed;
         updateGrowthStage();
     }
-
+    
     //  progression (internal)
     protected void updateGrowthStage(){
         if(age >= 8){
@@ -77,27 +77,45 @@ public abstract class Livestock extends Item{
     }
 
     //  getters
-    public String getPetName(){
-        return this.petName;
+    public int getAge(){
+        return this.age;
     }
 
     public String getGrowthStage(){
         return this.growthStage;
     }
 
-    public int getAge(){
-        return this.age;
+    public String getPetName(){
+        return this.petName;
     }
 
+    public double getSellPrice(){
+    double multiplier;
+    switch(this.growthStage) {
+        case "Adult":
+            multiplier = 1.0;
+            break;
+        case "Young":
+            multiplier = 0.80;
+            break;
+        case "Baby":
+            multiplier = 0.50;
+            break; 
+        default:
+            return 0.0;
+    }
+    return getCost() * multiplier;
+}
+
     //  setters
-    public void setBreedCooldown(int cooldown) {
+    public void setBreedCooldown(int cooldown){
     this.breedCooldown = cooldown;
     }
 
     @Override
     public int sell() {
         int sellPrice;
-        switch(this.growthStage) {
+        switch(this.growthStage){
             case "Adult":
                 sellPrice = (int)(getCost() * 1.0);
                 System.out.println("You sold " +this.petName +", a " +getName().toLowerCase() +", for " +sellPrice +" coins! Fare well~");
