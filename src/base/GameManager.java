@@ -154,10 +154,10 @@ public class GameManager {
     while (true) {
       System.out.println("\n──────────────── ANIMAL BARN ───────────────\n");
       System.out.println("\"Time to check on your friends!~ What needs doing in the barn today?\"\n");
-      System.out.println("1. Feed Animals");
-      System.out.println("2. Breed Animals");
-      System.out.println("3. Collect Produce");
-      System.out.println("4. They're alright, I'll go do something else");
+      System.out.println("[1] Feed Animals");
+      System.out.println("[2] Breed Animals");
+      System.out.println("[3] Collect Produce");
+      System.out.println("[4] They're alright, I'll go do something else");
       System.out.print("\n-> ");
 
       int barnMenuChoice = InputUtils.getValidIntInput(scanner, 1, 4);
@@ -182,8 +182,8 @@ public class GameManager {
     while (true) {
       System.out.println("\n──────────────── FISHING DOCK ───────────────\n");
       System.out.println("\"Fishing time! Remember: patience is key, and so is random luck.\"\n");
-      System.out.println("1. Start Fishing");
-      System.out.println("2. I want to do something else");
+      System.out.println("[1] Start Fishing");
+      System.out.println("[2] I want to do something else");
       System.out.print("\n-> ");
       
       int fishingMenuChoice = InputUtils.getValidIntInput(scanner, 1,2);

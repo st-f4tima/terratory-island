@@ -54,7 +54,7 @@ public class LivestockManager {
     int playerLevel = player.getLevel();
     boolean giftedAnimal = false;
 
-    System.out.println("\n──────────────── ANIMAL ACQUISITIONS ────────────────");
+    System.out.println("\n[Barn Update]");
 
     for (Livestock species : allLivestockSpecies) {
       String speciesName = species.getName();
@@ -93,7 +93,7 @@ public class LivestockManager {
         //  grant animal
         //  The addAnimal function in LivestockInventory will handle the print statement for adding
         player.getLivestockInventory().addAnimal(newAnimal); 
-        System.out.println("🎉 Congrats! You reached Level " + levelRequired + "! You were gifted a new " + speciesName + " named " + petName + ".");
+        System.out.println("You were gifted a new " + speciesName + " named " + petName + ".");
         
         //  update gifting status
         livestockGiftingStatus.put(speciesName, timesGifted + 1);
@@ -103,7 +103,6 @@ public class LivestockManager {
     if(!giftedAnimal) {
         System.out.println("No new animals were acquired today.");
     }
-    System.out.println("───────────────────────────────────────────────────\n");
   }
 
   //  progress
@@ -127,9 +126,6 @@ public class LivestockManager {
       }
     }
   }
-
-
-
 
   // choice 1
   public void feedAllAnimals(Scanner scanner, Player player) {
@@ -170,9 +166,6 @@ public class LivestockManager {
   InputUtils.waitEnter(scanner);
   System.out.println();
   }
-
-
-
 
   // choice 2
   public void breedAnimal(Scanner scanner, Player player) {
@@ -234,9 +227,6 @@ public class LivestockManager {
     }
     InputUtils.waitEnter(scanner);
   }
-
-
-
 
   //  choice 3
   public void collectProduceFromAnimals(Scanner scanner, Player player) {

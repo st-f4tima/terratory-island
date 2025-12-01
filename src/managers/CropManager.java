@@ -102,7 +102,7 @@ public class CropManager {
 
     System.out.println("\nSpecify the number of seeds to plant:");
     System.out.print("-> ");
-    int quantity = InputUtils.getValidIntInput(scanner, 1, 100); 
+    int quantity = InputUtils.getValidIntInput(scanner, 1, 4); 
 
     for (int i = 0; i < quantity; i++) {
       this.plantedCrops.add(chosenSeed.createCopy());
