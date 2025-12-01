@@ -48,7 +48,7 @@ public class CropInventory extends Inventory {
     int selectedCrop = InputUtils.getValidIntInput(scanner, 0, totalCropsCount);
 
     if(selectedCrop == 0) {
-      System.out.println("Sale cancelled.");
+      System.out.println("\nSale cancelled.");
       return;
     }
 

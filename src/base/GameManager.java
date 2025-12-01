@@ -243,10 +243,10 @@ public class GameManager {
   // main menu: leave the game
   public void leaveGame(Scanner scanner) {
     System.out.println("\n────────────────── LEAVE GAME ───────────────\n");
-    String exitPrompt = "The air grows heavy, tasting of unfixed fences and unwatered earth.\nYou feel the weight of every choice you made.\n\n" +
-                        "Are you certain you wish to abandon this island?\n\n" +
-                        "Know this:\nYour fields will turn to weeds, your barn will fall silent,\nand the fish will return to the deepest part of the waters,\nall progress vanished like morning dew.\n\n" +
-                        "There is no going back.";
+    String exitPrompt = "\"The air grows heavy, tasting of unfixed fences and unwatered earth.\nYou feel the weight of every choice you made.\"\n\n" +
+                        "\"Are you certain you wish to abandon this island?\"\n\n" +
+                        "Know this:\n\"Your fields will turn to weeds, your barn will fall silent,\nand the fish will return to the deepest part of the waters,\nall progress vanished like morning dew.\"\n\n" +
+                        "\"There is no going back.\"";
     System.out.println(exitPrompt);
     System.out.println("\n[1] Leave");
     System.out.println("[2] Stay");
