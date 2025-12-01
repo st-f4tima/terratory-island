@@ -77,8 +77,7 @@ public abstract class Crop extends Item {
   }
 
   public boolean isHarvestable() {
-    // return daysGrown >= growthDays && !isHarvested;
-    return true;
+    return daysGrown >= growthDays && !isHarvested;
   }
   
   @Override
