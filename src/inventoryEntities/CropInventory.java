@@ -42,9 +42,15 @@ public class CropInventory extends Inventory {
       totalCropsCount += cropList.size();
     }
 
-    System.out.println("\nSelect the number of the crop you wish to sell:");
+    System.out.println("\nWhich crop would you like to sell? (Enter Number)");
+    System.out.println("[0] Cancel Sale");
     System.out.print("-> ");
-    int selectedCrop = InputUtils.getValidIntInput(scanner, 1, totalCropsCount);
+    int selectedCrop = InputUtils.getValidIntInput(scanner, 0, totalCropsCount);
+
+    if(selectedCrop == 0) {
+      System.out.println("Sale cancelled.");
+      return;
+    }
 
     int cropCounter = 0;
     boolean cropSold = false;
