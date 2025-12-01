@@ -66,8 +66,6 @@ public class LivestockInventory extends Inventory{
 
   // sell animal
   public void sellOneLivestock(Scanner scanner, Player player) {
-    System.out.println("\n───────────────── SELL LIVESTOCK ─────────────────\n");
-    
     List<Livestock> allAnimals = getAllLivestock();
     
     if (allAnimals.isEmpty()) {
