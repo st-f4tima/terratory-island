@@ -45,9 +45,9 @@ public class Pig extends Livestock{
         int truffleFound = rnd.nextInt(TRUFFLE_MAX - TRUFFLE_MIN + 1) + TRUFFLE_MIN;
         this.isFed = false;
         if (truffleFound > 0) {
-            System.out.println("You collected " +truffleFound +" " +getProduce() +"(s) from " +this.petName +"!");
+            System.out.println("\nYou collected " +getProduce() +"(s) from " +this.petName +"!");
         } else {
-            System.out.println(this.petName + " was fed but didn't lay any eggs today.");
+            System.out.println(this.petName + " was fed but didn't feel like working today.");
         }
         return truffleFound;
     }

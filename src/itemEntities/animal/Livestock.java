@@ -21,10 +21,10 @@ public abstract class Livestock extends Item{
     //  progression (internal)
     protected void updateGrowthStage(){
         if(age >= 8){
-            this.growthStage = "Adult";
-            if(this.breedCooldown == 0){
-                this.breedCooldown = 7;
-            }
+          this.growthStage = "Adult";
+          if(this.breedCooldown == 0){
+            this.breedCooldown = 7;
+          }
         } else if(age >= 4){
             this.growthStage = "Young";
             this.breedCooldown = 0;
@@ -37,11 +37,11 @@ public abstract class Livestock extends Item{
     //  progression (in-game)
     public void growLivestock(){
         this.age++;
-        if (this.breedCooldown > 0) {
-            this.breedCooldown--;
-        }
-        updateGrowthStage();
-        this.isFed = false;
+      if (this.breedCooldown > 0) {
+        this.breedCooldown--;
+      }
+      updateGrowthStage();
+      this.isFed = false;
     }
 
     //  animal-specific
