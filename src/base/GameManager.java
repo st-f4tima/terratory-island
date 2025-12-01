@@ -50,11 +50,24 @@ public class GameManager {
   public void createCharacter(Scanner scanner) {
     System.out.println("\n───────────── BUILD CHARACTER ─────────────");
 
-    System.out.print("\nEnter username: ");
-    String username = scanner.nextLine();
+    String username = "";
+    while (username.trim().isEmpty()) {
+      System.out.print("\nEnter username: ");
+      username = scanner.nextLine();
+      if (username.trim().isEmpty()) {
+        System.out.println("\nYou cannot be nameless, give yourself a name.");
+      }
+    }
 
-    System.out.print("Enter island name: ");
-    String islandName = scanner.nextLine();
+    // Loop until a non-empty island name is entered
+    String islandName = "";
+    while (islandName.trim().isEmpty()) {
+      System.out.print("Enter island name: ");
+      islandName = scanner.nextLine();
+      if (islandName.trim().isEmpty()) {
+        System.out.println("\nThe island needs a name to exist in the world.\n");
+      }
+    }
 
     this.player = new Player(username, islandName);
     this.cropManager = new CropManager(player);

@@ -134,7 +134,7 @@ public class LivestockInventory extends Inventory{
       }
       firstSpecies = false;
 
-      String speciesHeader = String.format("│ %-56s │", "Species: " + species + " (" + animals.size() + ")");
+      String speciesHeader = String.format("│ %-61s │", "Species: " + species + " (" + animals.size() + ")");
       System.out.println(speciesHeader);
       System.out.println(separator);
 
