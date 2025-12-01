@@ -45,7 +45,7 @@ public class Chicken extends Livestock{
         int eggsLayed = rnd.nextInt(EGGS_MAX - EGGS_MIN + 1) + EGGS_MIN;
         this.isFed = false;
         if (eggsLayed > 0) {
-            System.out.println("You collected " +eggsLayed +" " +getProduce() +"(s) from " +this.petName +"!");
+            System.out.println("\nYou collected " +getProduce() +"/s from " +this.petName +"!");
         } else {
             System.out.println(this.petName + " was fed but didn't lay any eggs today.");
         }

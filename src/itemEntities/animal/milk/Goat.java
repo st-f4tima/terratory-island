@@ -36,7 +36,7 @@ public class Goat extends Livestock{
         }
         //  feed first
         if (this.isFed) {
-            System.out.println("You collected " + getProduce().toLowerCase() + " from " + this.petName + "!");
+            System.out.println("\nYou collected " + getProduce().toLowerCase() + " from " + this.petName + "!");
             this.isFed = false;
             return 1;
         } else {

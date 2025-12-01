@@ -232,7 +232,7 @@ public class LivestockManager {
       }
     }
     if (breedableAnimals.isEmpty()) {
-        System.out.println("\nNo adult animals are ready to breed today (check age and cooldown).");
+        System.out.println("\nNo adult animals are ready to breed today.");
         InputUtils.waitEnter(scanner);
         return;
     }
