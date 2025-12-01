@@ -20,11 +20,27 @@
   </a>
 </p>
 
+  ‎  
 ## 📌 Description
 
-Terratory Island is a console-based adventure game where you explore a mysterious island and develop it into your own territory. Changing seasons bring new challenges and story events. Level up by planting, fishing, and tending animals as you experience a journey full of discovery and excitement.
+‎‎‎ ‎ ‎ ‎ Terratory Island is a console-based adventure game where you explore a mysterious island and develop it into your own territory. Changing seasons bring new challenges and story events. Level up by planting, fishing, and tending animals as you experience a journey full of discovery and excitement.
 
+  ‎  
+## 📦 Object-Oriented Programming Concepts
+
+The project's demonstration of the four pillars of Object-Oriented Programming.
+
+|**Pillar​  ​​  ​   ​  ​  | Implementation | Code Samples |
+|-----------|----------------------------|-------------------|
+| **Abstraction** | Defines core contracts and shared properties using **Abstract Classes**. All items and inventories follow these blueprints. | `Item`, `Inventory`, `Crop`, `Livestock`, `Fish` |
+| **Inheritance** | Specialized classes inherit common fields and methods from `Item`. Establishes clean hierarchy in game entities. | `Crop`, `Livestock`, `Fish` → all inherit from `Item` |
+| **Polymorphism** | Uses **Method Overriding** so methods like `sell()` and `createCopy()` behave differently depending on object type. | `sell()` is computed differently for crops (1.5×), livestock (age multiplier), fish (weight multiplier) |
+| **Encapsulation** | Prevents direct field access using `private`/`protected`. Object values change only through **public getters/setters**. | `daysGrown` changes via `grow()`. Livestock’s `isFed` set via `feed()`. |
+
+
+  ‎  
 ## 📁 Structure
+
 ```bash
 terratory-island/
 │
@@ -55,6 +71,7 @@ terratory-island/
 ```
 
 ### Directory Description
+
 - **Root Level**
   - `assets/` - Static resources like images
   - `.gitignore` - Git exclusion rules
@@ -78,7 +95,8 @@ terratory-island/
 - **src/utils/**
   - Helper utilities for user input validation.
 
-## 🚀 How to Run the Program
+  ‎  
+<h1 align="center"> 🚀 How to Run the Program ⚙️</h1>
 
 Follow these steps to play **Terratory Island**:
 
@@ -106,12 +124,28 @@ Follow these steps to play **Terratory Island**:
   java App.java
   ```
 
-## 🌸 Acknowledgement
+  ‎  
+# 👥 Team of Authors 
 
-We extend our deepest appreciation to everyone who contributed to the success of this project.
+| Name | Contribution | GitHub |
+| :--- | :--- | :--- |
+| **Auditor, Kishean Carisse** | Implemented and refined all **fish system mechanics**, including behavior logic and functional integration | [@carissseee](https://github.com/carissseee) |
+| **Calabia, Geanne Margaret** | Developed **livestock-related features**, ensuring proper behavior handling and system functionality | [@ennage](https://github.com/ennage) |
+| **Pura, Fatima** | Designed and programmed the **crop growth and management system**, including core logic and feature implementation | [@st-f4tima](https://github.com/st-f4tima) |
 
-First, our heartfelt gratitude goes to Mr. Emmanuel Charlie Enriquez, our instructor, for his guidance, advice, and continuous support throughout the development of this project. We also want to thank Ma’am Fatima Marie P. Agdon, for her guidance and valuable input during the earlier stages, and the foundation she helped us build.
+  ‎  
+<h1 align="center">🌸 Acknowledgment 🌸</h1>
 
-To our teammates, thank you for your hard work, dedication, and teamwork throughout this project. Working together has been a rewarding experience, and we truly could not have completed this without each of you.
+‎‎‎ ‎ ‎ ‎ We extend our deepest appreciation to everyone who contributed to the success of this project.
+
+
+‎‎‎ ‎ ‎ ‎ First, our heartfelt gratitude goes to [Mr. Emmanuel Charlie Enriquez](21-03267@g.batstate-u.edu.ph), our instructor, for his guidance, advice, and continuous support throughout the development of this project. We also want to thank [Ms. Fatima Marie](https://github.com/marieemoiselle), for her guidance and valuable input during the earlier stages, and the foundation she helped us build.
+
+
+‎‎‎ ‎ ‎ ‎ To our teammates, thank you for your hard work, dedication, and teamwork throughout this project. Working together has been a rewarding experience, and we truly could not have completed this without each of you.
 
 — *The Three Musketeers* ✨
+
+<p align="center">
+  <img src="https://media.giphy.com/media/PBjYnVtoEMfilxyyw9/giphy.gif" alt="Pixel Game" width="400"/>
+</p>
